@@ -1,0 +1,61 @@
+Market Cap Segment,Company Name,Ticker,Sector / Industry,Installed / Contracted RE (MW),Solar / Wind / Green Tech Details,RE Electricity Share (%),Annual Green Units (MU / MWh M),Avg. Grid Tariff (₹/kWh),Green Landed Cost (₹/kWh),Cost Shielded / Unit Saved (₹/kWh),Est. Annual Cost Shielded (₹ Crore),Primary Sourcing Model,Key Targets / Commitments
+Large Cap,UltraTech Cement Ltd,ULTRACEMCO,Cement & Materials,1363,"1,021 MW Solar/Wind + 342 MW WHRS",32,3600,8.2,3.8,4.4,1584,Group Captive Solar/Wind + WHRS,"85% Green by 2030, RE100 (100% by 2050)"
+Large Cap,Reliance Industries Ltd,RELIANCE,Conglomerate / Energy & Telecom,247,247 MWp captive PV + Kutch/Jamnagar Hubs,10,1200,7.8,3.4,4.4,528,Captive Mega-Hubs + 28k Tower Solar,"100 GW RE by 2030, Net Zero 2035"
+Large Cap,Tata Steel Ltd,TATASTEEL,Steel & Metals,1036,451.5 MW Solar + 587 MW Wind (TPREL),16,2100,8,3.9,4.1,861,Group Captive PPA with TPREL,"50% Green by 2030, Net Zero 2045"
+Large Cap,JSW Steel Ltd,JSWSTEEL,Steel & Metals,782,782 MW Solar & Wind (Vijayanagar/Salem),14,1750,7.9,3.85,4.05,708.8,Group Captive PPA with JSW Energy,"1,000 MW Phase 1 + 1,500 MW Ph 2, Net Zero 2050"
+Large Cap,Infosys Ltd,INFY,IT & Software Services,60,60 MW onsite & offsite solar PV,77.7,285,9.2,3.5,5.7,162.5,Campus Rooftop PV + Green Tariffs,"RE100 Signatory, 100% RE electricity target"
+Large Cap,Bharti Airtel Ltd (Nxtra),BHARTIARTL,Telecom & Data Centers,120,"482.8k MWh PPA + 28,000 solar towers",49,483,9.5,4.2,5.3,256,Open Access Solar/Wind + Distributed Rooftop,RE100 (100% RE in Nxtra Data Centers by 2030)
+Large Cap,ITC Limited,ITC,"FMCG, Paper, Hotels",195,177-205 MW Solar & Wind assets,52,420,8.5,3.75,4.75,199.5,Offsite Solar/Wind + Biomass boilers,>50% RE maintained; Sustainability 2.0
+Large Cap,Hindalco Industries Ltd,HINDALCO,Aluminium & Copper,190,190 MW operational (470 MW pipeline),8,650,7.5,3.8,3.7,240.5,RTC RE PPA with Greenko (Pumped Hydro),"350 MW RTC RE for smelters, Net Zero 2050"
+Large Cap,Tata Motors Ltd,TATAMOTORS,Automotive,152,131 MW Hybrid PPA + 21 MW Rooftop Solar,51,220,8.8,3.8,5,110,Rooftop Solar on Pune/Sanand + TPREL Hybrid,100% RE in manufacturing by 2030
+Large Cap,Larsen & Toubro Ltd,LT,Engineering & Construction,65,65 MW captive solar/wind at major yards,38,145,8.4,3.9,4.5,65.3,Rooftop & Ground Mounted Solar (Hazira/Chennai),Water & Carbon Neutral by 2040
+Large Cap,Mahindra & Mahindra Ltd,M&M,Automotive & Tractors,78,78 MW Solar & Wind installations,45,160,8.9,3.8,5.1,81.6,Group Captive Solar with Mahindra Susten,100% RE by 2030 (EP100 & RE100)
+Large Cap,Wipro Ltd,WIPRO,IT & Software Services,45,Onsite solar + long-term Green PPAs,68,190,9.1,3.6,5.5,104.5,PPA Open Access Solar + Campus Rooftop,"RE100, Net Zero GHG by 2040"
+Large Cap,Grasim Industries Ltd,GRASIM,Chemicals & Textiles,185,185 MW Solar & Wind for VSF & Chemicals,24,450,7.9,3.8,4.1,184.5,Group Captive Solar/Wind + Biomass,50% RE by 2030
+Large Cap,Titan Company Ltd,TITAN,Consumer Lifestyle & Jewellery,18,18 MW solar plants in Tamil Nadu & Hosur,72,42,8.7,3.7,5,21,Dedicated Solar Park + Rooftop Solar,100% RE across manufacturing by 2027
+Large Cap,Asian Paints Ltd,ASIANPAINT,Paints & Chemicals,42,42 MW Solar & Wind installations,61,88,8.6,3.75,4.85,42.7,Rooftop Solar on all 8 plants + Wind PPAs,75% RE by 2028
+Large Cap,Sun Pharmaceutical Ltd,SUNPHARMA,Pharmaceuticals,38,38 MW Solar & Wind across plants,35,95,8.5,3.85,4.65,44.2,Onsite Rooftop + Open Access Solar,50% RE by 2030
+Large Cap,Tech Mahindra Ltd,TECHM,IT & Software Services,25,25 MW Rooftop Solar + Green PPA,58,72,9.3,3.6,5.7,41,Green Tariffs + Campus Solar,"RE100, 100% RE by 2030"
+Large Cap,HCL Technologies Ltd,HCLTECH,IT & Software Services,32,32 MW solar installations & PPA,62,110,9.2,3.65,5.55,61.1,Campus Rooftop PV + Green Open Access,"RE100, Net Zero by 2040"
+Large Cap,Adani Ports and SEZ Ltd,ADANIPORTS,Logistics & Ports,65,65 MW captive solar/wind at Mundra & ports,39,130,8,3.7,4.3,55.9,Rooftop & Port Land Solar PV,"Carbon Neutral by 2025, 100% RE by 2030"
+Large Cap,NTPC Ltd (Captive & Green),NTPC,Power Utilities,3500,"3,500 MW RE operational (60 GW by 2032)",12,4500,6.5,3.1,3.4,1530,Utility Solar + Floating Solar at Reservoirs,60 GW RE by 2032 (NTPC Green Energy)
+Mid Cap,Shree Cement Ltd,SHREECEM,Cement,666.5,350 MW Solar/Wind + 274 MW WHRS,58,1950,8.1,3.6,4.5,877.5,Captive Solar/Wind parks + WHRS integration,Reach >65% Green Power by 2027
+Mid Cap,Dalmia Bharat Ltd,DALBHARAT,Cement,410,136 MW Solar + Wind + WHRS,47,850,8,3.7,4.3,365.5,"RE100, Captive Solar + Open Access","100% RE by 2030, Carbon Negative 2040"
+Mid Cap,The Ramco Cements Ltd,RAMCOCEM,Cement,215,165 MW Wind + 50 MW Solar & WHRS,42,480,8.3,3.75,4.55,218.4,Captive Wind farms in TN + Rooftop Solar,60% RE by 2030
+Mid Cap,Tata Power Co Ltd,TATAPOWER,Power Utilities & Cleantech,5500,"5,500 MW operational RE portfolio",40,7200,7.8,3.3,4.5,3240,Utility RE + Group Captive Solar Developer,100% Clean Energy by 2045
+Mid Cap,JSW Energy Ltd,JSWENERGY,Power Utilities & RE,3200,"3,200 MW operational RE (10 GW pipeline)",45,4800,7.7,3.25,4.45,2136,"Solar, Wind & Pumped Hydro Developer","20 GW by 2030, 85% RE share"
+Mid Cap,Jindal Stainless Ltd,JINDALSTEL,Stainless Steel,300,100 MW Rooftop/Floating Solar + 200 MW Wind,18,650,7.8,3.8,4,260,Captive Hybrid PPA with ReNew & Rooftop,50% Carbon Reduction by 2035
+Mid Cap,Bharat Forge Ltd,BHARATFORG,Auto Ancillary & Forging,52,52 MW Solar & Wind installations,36,135,8.9,3.8,5.1,68.9,Group Captive Solar in Maharashtra,Carbon Neutral by 2040
+Mid Cap,Apollo Tyres Ltd,APOLLOTYRE,Auto Tyres,48,48 MW Solar & Biomass installations,32,120,8.6,3.75,4.85,58.2,Open Access Solar in AP & Gujarat,25% Carbon Intensity cut by 2026
+Mid Cap,CEAT Ltd,CEATLTD,Auto Tyres,38,38 MW Solar installations (Halol & Nagpur),34,95,8.7,3.8,4.9,46.6,Rooftop Solar + Captive Solar PPA,50% RE by 2030
+Mid Cap,SRF Ltd,SRF,Specialty Chemicals & Packaging,65,65 MW Solar & Wind power PPAs,22,160,8,3.85,4.15,66.4,Open Access Solar in Rajasthan & MP,35% RE by 2028
+Mid Cap,PI Industries Ltd,PIIND,Agrochemicals & Specialty Chem,28,28 MW Solar power plants & rooftop,31,65,8.2,3.7,4.5,29.3,Onsite Rooftop Solar + Offsite Open Access,45% RE by 2030
+Mid Cap,Biocon Ltd,BIOCON,Biopharmaceuticals,22,22 MW Solar & Wind PPAs,48,58,8.8,3.8,5,29,Open Access Solar with CleanMax,70% RE by 2028
+Mid Cap,Marico Ltd,MARICO,FMCG / Personal Care,16,16 MW Solar & Biomass fuel assets,65,32,8.5,3.7,4.8,15.4,Rooftop Solar on 100% of owned factories,Net Zero emissions by 2040
+Mid Cap,Godrej Consumer Products,GODREJCP,FMCG,18,18 MW Solar & Biomass cogeneration,42,38,8.6,3.75,4.85,18.4,Onsite Rooftop Solar + Green Tariff,100% RE by 2030
+Mid Cap,Ashok Leyland Ltd,ASHOKLEY,Commercial Vehicles,55,"55 MW Solar (Pantnagar, Ennore, Hosur)",60,115,8.8,3.7,5.1,58.7,Rooftop Solar & Wind PPA in Tamil Nadu,100% RE across manufacturing by 2030
+Mid Cap,Cummins India Ltd,CUMMINSIND,Diesel & Natural Gas Engines,14,14 MW Rooftop Solar at Kothrud & Phaltan,45,28,8.9,3.8,5.1,14.3,Rooftop Solar installations,"Planet 2050 target, 50% RE by 2030"
+Mid Cap,Voltas Ltd,VOLTAS,Consumer Durables & Cooling,8.5,8.5 MW Rooftop Solar at Pantnagar & Sanand,40,16,8.7,3.75,4.95,7.9,Factory Rooftop Solar PV,50% RE by 2030
+Mid Cap,Jubilant FoodWorks Ltd,JUBLFOOD,QSR / Food Services,12,12 MW Open access solar for commissaries,35,24,9.4,4.1,5.3,12.7,Green Open Access PPA for central kitchens,50% RE by 2030
+Mid Cap,Supreme Industries Ltd,SUPREMEIND,Plastics & Piping,32,32 MW Rooftop Solar across 28 units,28,75,8.5,3.75,4.75,35.6,Rooftop Solar on all manufacturing units,40% RE by 2028
+Mid Cap,Exide Industries Ltd,EXIDEIND,Batteries & Storage,35,35 MW Solar & Wind installations,26,82,8.4,3.8,4.6,37.7,Rooftop Solar + Haldia captive park,50% RE by 2030
+Small & Micro Cap,KPR Mill Ltd,KPRMILL,Textiles & Garments,191.9,61.9 MW Wind + 35 MW Solar + 90 MW Co-gen,100,450,8.2,3.4,4.8,216,Captive Wind & Solar Parks (100% self-reliant),100% RE achieved in FY26
+Small & Micro Cap,Welspun Living Ltd,WELSPUNLIV,Home Textiles,35,35 MW Rooftop & Ground Solar at Anjar & Vapi,48,85,8.1,3.6,4.5,38.3,Rooftop Solar on mega textile parks,100% RE by 2030 (RE100 member)
+Small & Micro Cap,Arvind Ltd,ARVIND,Textiles & Apparel,28,28 MW Rooftop Solar at Santej & Naroda,38,62,8.2,3.65,4.55,28.2,Largest rooftop solar installations in textiles,50% RE by 2028
+Small & Micro Cap,Sagar Cements Ltd,SAGCEM,Cement,25.5,18 MW Solar + 7.5 MW WHRS,36,78,8.1,3.7,4.4,34.3,Captive Solar Plant at Mattampally & WHRS,50% Green Power by 2028
+Small & Micro Cap,Orient Cement Ltd,ORIENTCEM,Cement,50,35 MW Solar PPA + 15 MW WHRS,38,110,8,3.75,4.25,46.8,Solar PPA with Cleantech + WHRS,55% Green Power by 2030
+Small & Micro Cap,Birla Corporation Ltd,BIRLACORPN,Cement & Jute,55,35 MW Solar/Wind + 20 MW WHRS,30,135,8.1,3.75,4.35,58.7,Onsite Solar + Open access wind/solar,45% RE by 2029
+Small & Micro Cap,Kajaria Ceramics Ltd,KAJARIACER,Tiles & Ceramics,12.5,12.5 MW Rooftop Solar at Gailpur & Malutana,24,28,8.5,3.7,4.8,13.4,Factory Rooftop Solar PV,35% RE by 2028
+Small & Micro Cap,Somany Ceramics Ltd,SOMANYCERA,Tiles & Ceramics,8.5,8.5 MW Rooftop Solar across Kadi & Kassar,20,18,8.6,3.75,4.85,8.7,Onsite Rooftop Solar,30% RE by 2028
+Small & Micro Cap,Borosil Renewables Ltd,BORORENEW,Solar Glass & Specialty Glass,10,10 MW Captive Solar & Wind installation,30,24,8.2,3.6,4.6,11,Captive Solar PV + Solar Glass production,50% RE by 2030
+Small & Micro Cap,Gabriel India Ltd,GABRIEL,Auto Ancillary / Shock Absorbers,6.5,6.5 MW Rooftop Solar across Pune & Hosur,32,14,8.9,3.8,5.1,7.1,Rooftop Solar on factory sheds,50% RE by 2028
+Small & Micro Cap,Lumax Auto Tech Ltd,LUMAXTECH,Auto Ancillary / Lighting,8,8 MW Rooftop Solar across 11 plants,26,18,8.8,3.8,5,9,Rooftop Solar installations,40% RE by 2030
+Small & Micro Cap,Subros Ltd,SUBROS,Thermal Systems / Auto AC,5.5,5.5 MW Rooftop Solar at Noida & Manesar,22,12,8.7,3.8,4.9,5.9,Rooftop Solar PV,35% RE by 2029
+Small & Micro Cap,Sharda Motor Industries,SHARDAMOTR,Auto Exhaust Systems,4.5,4.5 MW Rooftop Solar installations,20,10,8.8,3.8,5,5,Rooftop Solar on manufacturing units,30% RE by 2030
+Small & Micro Cap,KPI Green Energy Ltd,KPIGREEN,Solar IPP & Captive Enabler,165,165 MW Captive/IPP operational (1.5 GW pipe),95,280,7.8,3.1,4.7,131.6,Developer of Solar Parks & Group Captive,Reach 2.5 GW green capacity by 2026
+Small & Micro Cap,Gensol Engineering Ltd,GENSOL,Solar EPC & EV Cleantech,85,85 MW Solar assets + massive EPC pipeline,80,140,7.9,3.2,4.7,65.8,Solar EPC Developer & Captive Assets,1 GW renewable development portfolio
+Small & Micro Cap,Suzlon Energy Ltd,SUZLON,Wind Energy Equipment & O&M,120,120 MW Captive/Wind O&M support assets,75,210,7.8,3.2,4.6,96.6,Wind OEM powering manufacturing green,100% RE in own plants by 2028
+Small & Micro Cap,Inox Wind Ltd,INOXWIND,Wind Energy Solutions,80,80 MW Wind & Hybrid captive installations,70,150,7.9,3.3,4.6,69,Wind Turbine manufacturing + Hybrid plants,Net Zero operations by 2030
+Small & Micro Cap,Orient Green Power Co,GREENPOWER,Pure-Play Renewable IPP,402,402 MW Wind & Biomass plants,100,620,7.6,3.3,4.3,266.6,Independent Power Producer (IPP),1 GW green energy portfolio
+Small & Micro Cap,Sterling & Wilson RE Ltd,SWSOLAR,Solar EPC Pure Play,25,25 MW Rooftop & captive demo solar PV,65,45,8.5,3.5,5,22.5,EPC & captive solar solutions,Global leader in utility solar EPC
+Small & Micro Cap,Waaree Energies Ltd,WAAREE,Solar PV Modules & Cleantech,55,55 MW Captive Solar + 12 GW Module Mfg,70,110,8,3.2,4.8,52.8,Captive Solar PV for module gigafactories,100% Green Manufacturing by 2028

@@ -1,0 +1,1301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>India Corporate Renewables & Stock Returns Terminal (5,461 Listed Companies)</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- Chart.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    :root {
+      --bg-dark: #0B1120;
+      --bg-card: #131D31;
+      --bg-card-hover: #1B2844;
+      --border-color: rgba(255, 255, 255, 0.08);
+      --primary: #10B981; /* Emerald Green */
+      --primary-light: #34D399;
+      --primary-glow: rgba(16, 185, 129, 0.25);
+      --blue-accent: #3B82F6;
+      --amber: #F59E0B;
+      --crimson: #EF4444;
+      --purple: #8B5CF6;
+      --text-main: #F8FAFC;
+      --text-muted: #94A3B8;
+      --text-dim: #64748B;
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+      --shadow-card: 0 10px 25px -5px rgba(0, 0, 0, 0.4), 0 8px 10px -6px rgba(0, 0, 0, 0.3);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Inter', sans-serif; background-color: var(--bg-dark); color: var(--text-main); min-height: 100vh; line-height: 1.5; overflow-x: hidden; }
+    h1, h2, h3, h4, .font-heading { font-family: 'Outfit', sans-serif; font-weight: 700; }
+
+    /* Navbar */
+    .navbar { display: flex; justify-content: space-between; align-items: center; padding: 1rem 2rem; background: rgba(11, 17, 32, 0.85); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border-color); position: sticky; top: 0; z-index: 100; }
+    .brand { display: flex; align-items: center; gap: 12px; }
+    .brand-logo { width: 38px; height: 38px; background: linear-gradient(135deg, #10B981 0%, #3B82F6 100%); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 20px; box-shadow: 0 0 16px var(--primary-glow); }
+    .brand-title { font-size: 1.25rem; letter-spacing: -0.02em; background: linear-gradient(to right, #FFFFFF, #94A3B8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .brand-badge { font-size: 0.7rem; padding: 2px 8px; background: rgba(16, 185, 129, 0.15); color: var(--primary-light); border: 1px solid rgba(16, 185, 129, 0.3); border-radius: 20px; font-weight: 600; }
+    .nav-actions { display: flex; align-items: center; gap: 12px; }
+
+    .btn { padding: 8px 16px; border-radius: var(--radius-sm); font-size: 0.85rem; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; transition: all 0.2s ease; border: none; outline: none; }
+    .btn-primary { background: var(--primary); color: #0B1120; }
+    .btn-primary:hover { background: var(--primary-light); box-shadow: 0 0 15px var(--primary-glow); transform: translateY(-1px); }
+    .btn-outline { background: rgba(255, 255, 255, 0.05); color: var(--text-main); border: 1px solid var(--border-color); }
+    .btn-outline:hover { background: rgba(255, 255, 255, 0.1); border-color: rgba(255, 255, 255, 0.2); }
+    .btn-special { background: linear-gradient(135deg, #EF4444 0%, #F59E0B 100%); color: #FFFFFF; box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3); }
+    .btn-special:hover { filter: brightness(1.1); transform: translateY(-1px); }
+
+    /* Main Container */
+    .container { max-width: 1540px; margin: 0 auto; padding: 2rem; }
+
+    /* Hero Section */
+    .hero-banner { background: linear-gradient(180deg, rgba(30, 41, 59, 0.5) 0%, rgba(19, 29, 49, 0.6) 100%); border: 1px solid var(--border-color); border-radius: var(--radius-lg); padding: 2rem; margin-bottom: 2rem; position: relative; overflow: hidden; }
+    .hero-banner::before { content: ''; position: absolute; top: -50px; right: -50px; width: 250px; height: 250px; background: radial-gradient(circle, rgba(16, 185, 129, 0.15) 0%, rgba(0, 0, 0, 0) 70%); pointer-events: none; }
+    .hero-title { font-size: 2rem; margin-bottom: 0.5rem; letter-spacing: -0.02em; }
+    .hero-subtitle { color: var(--text-muted); font-size: 1rem; max-width: 950px; }
+
+    /* KPI Grid */
+    .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.25rem; margin-bottom: 2rem; }
+    .kpi-card { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 1.25rem 1.5rem; box-shadow: var(--shadow-card); transition: transform 0.2s ease, border-color 0.2s ease; position: relative; }
+    .kpi-card:hover { transform: translateY(-3px); border-color: rgba(255, 255, 255, 0.2); }
+    .kpi-label { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-dim); margin-bottom: 6px; display: flex; justify-content: space-between; align-items: center; }
+    .kpi-value { font-size: 1.85rem; font-family: 'Outfit', sans-serif; font-weight: 700; color: var(--text-main); margin-bottom: 4px; }
+    .kpi-subtext { font-size: 0.75rem; color: var(--primary-light); display: flex; align-items: center; gap: 4px; }
+
+    /* Filter Toolbar */
+    .filter-panel { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 1.25rem; margin-bottom: 2rem; display: flex; flex-direction: column; gap: 1rem; }
+    .filter-row { display: flex; flex-wrap: wrap; gap: 0.75rem; align-items: center; width: 100%; }
+    
+    .search-box { position: relative; flex: 2; min-width: 260px; }
+    .search-input { width: 100%; padding: 9px 36px 9px 38px; background: rgba(11, 17, 32, 0.8); border: 1px solid var(--border-color); border-radius: var(--radius-sm); color: var(--text-main); font-size: 0.85rem; outline: none; transition: border-color 0.2s; }
+    .search-input:focus { border-color: var(--primary); box-shadow: 0 0 0 2px var(--primary-glow); }
+    .search-icon { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: var(--text-dim); font-size: 0.9rem; pointer-events: none; }
+    .search-clear { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); color: var(--text-dim); font-size: 0.9rem; cursor: pointer; display: none; }
+    .search-clear:hover { color: var(--text-main); }
+
+    .select-dropdown { padding: 8px 12px; background: rgba(11, 17, 32, 0.8); border: 1px solid var(--border-color); border-radius: var(--radius-sm); color: var(--text-main); font-size: 0.82rem; outline: none; cursor: pointer; flex: 1; min-width: 150px; }
+    .select-dropdown:focus { border-color: var(--primary); }
+
+    .pill-group { display: flex; background: rgba(11, 17, 32, 0.8); border: 1px solid var(--border-color); border-radius: var(--radius-sm); padding: 3px; gap: 2px; flex-wrap: wrap; }
+    .pill-btn { padding: 6px 11px; font-size: 0.78rem; border: none; background: transparent; color: var(--text-muted); border-radius: 6px; cursor: pointer; transition: all 0.2s; font-weight: 500; }
+    .pill-btn.active { background: var(--primary); color: #0B1120; font-weight: 600; }
+    .pill-btn:hover:not(.active) { color: var(--text-main); background: rgba(255, 255, 255, 0.05); }
+
+    /* Active Filter Chips Bar */
+    .active-filters-bar { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; width: 100%; padding-top: 0.5rem; border-top: 1px dashed rgba(255, 255, 255, 0.08); font-size: 0.8rem; }
+    .active-filters-label { color: var(--text-dim); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; margin-right: 4px; }
+    .filter-chip { display: inline-flex; align-items: center; gap: 5px; padding: 3px 10px; background: rgba(59, 130, 246, 0.15); border: 1px solid rgba(59, 130, 246, 0.3); color: #93C5FD; border-radius: 16px; font-size: 0.75rem; font-weight: 500; }
+    .filter-chip .chip-remove { cursor: pointer; color: #94A3B8; font-weight: bold; margin-left: 2px; }
+    .filter-chip .chip-remove:hover { color: #EF4444; }
+    .btn-reset-filters { background: transparent; border: 1px solid rgba(239, 68, 68, 0.3); color: #FCA5A5; padding: 3px 10px; border-radius: 6px; font-size: 0.75rem; cursor: pointer; transition: all 0.2s; margin-left: auto; display: inline-flex; align-items: center; gap: 4px; }
+    .btn-reset-filters:hover { background: rgba(239, 68, 68, 0.15); color: #EF4444; }
+
+    /* Charts Section */
+    .charts-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(460px, 1fr)); gap: 1.5rem; margin-bottom: 2rem; }
+    .chart-card { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 1.5rem; box-shadow: var(--shadow-card); }
+    .chart-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem; }
+    .chart-title { font-size: 1.05rem; color: var(--text-main); }
+    .chart-legend { font-size: 0.75rem; color: var(--text-dim); }
+    .chart-container { position: relative; height: 280px; width: 100%; }
+
+    /* Data Table Section */
+    .table-container { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-md); box-shadow: var(--shadow-card); overflow: hidden; margin-bottom: 2.5rem; }
+    .table-header-panel { padding: 1.25rem 1.5rem; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color); flex-wrap: wrap; gap: 1rem; }
+    .table-title-group { display: flex; align-items: center; gap: 12px; }
+    .table-title { font-size: 1.15rem; }
+    .table-badge { font-size: 0.75rem; background: rgba(59, 130, 246, 0.15); color: #60A5FA; padding: 3px 10px; border-radius: 20px; font-weight: 600; }
+    .table-responsive { overflow-x: auto; max-height: 650px; }
+    table { width: 100%; border-collapse: collapse; font-size: 0.85rem; text-align: left; }
+    
+    /* Sortable Column Headers */
+    th { background: #0E1726; color: var(--text-muted); font-weight: 600; padding: 12px 14px; white-space: nowrap; position: sticky; top: 0; z-index: 10; border-bottom: 1px solid var(--border-color); }
+    th.sortable { cursor: pointer; user-select: none; transition: background 0.15s, color 0.15s; }
+    th.sortable:hover { background: #1a273f; color: var(--text-main); }
+    th.sortable .sort-icon { display: inline-block; margin-left: 4px; font-size: 0.75rem; color: var(--text-dim); }
+    th.sortable.sorted-asc .sort-icon { color: var(--primary); font-weight: 800; }
+    th.sortable.sorted-desc .sort-icon { color: var(--primary); font-weight: 800; }
+    th.sortable.sorted-asc, th.sortable.sorted-desc { background: #112238; color: var(--text-main); border-bottom: 2px solid var(--primary); }
+
+    td { padding: 12px 14px; border-bottom: 1px solid rgba(255, 255, 255, 0.04); white-space: nowrap; vertical-align: middle; }
+    tr:hover td { background: var(--bg-card-hover); }
+
+    /* Pagination controls */
+    .pagination-bar { display: flex; justify-content: space-between; align-items: center; padding: 1rem 1.5rem; border-top: 1px solid var(--border-color); background: rgba(11, 17, 32, 0.6); flex-wrap: wrap; gap: 1rem; }
+    .page-controls { display: flex; align-items: center; gap: 6px; }
+    .page-btn { padding: 6px 12px; font-size: 0.8rem; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 6px; color: var(--text-main); cursor: pointer; transition: all 0.15s; }
+    .page-btn:disabled { opacity: 0.35; cursor: not-allowed; }
+    .page-btn:hover:not(:disabled) { background: rgba(255, 255, 255, 0.1); border-color: rgba(255, 255, 255, 0.2); }
+    .page-input { width: 52px; padding: 5px 6px; text-align: center; background: rgba(11, 17, 32, 0.8); border: 1px solid var(--border-color); border-radius: 6px; color: var(--text-main); font-size: 0.8rem; outline: none; }
+    .page-input:focus { border-color: var(--primary); }
+
+    /* Badges & Tags */
+    .badge-cap { padding: 3px 8px; border-radius: 6px; font-size: 0.7rem; font-weight: 600; text-transform: uppercase; display: inline-block; }
+    .badge-large { background: rgba(59, 130, 246, 0.15); color: #93C5FD; border: 1px solid rgba(59, 130, 246, 0.3); }
+    .badge-mid { background: rgba(20, 184, 166, 0.15); color: #5EEAD4; border: 1px solid rgba(20, 184, 166, 0.3); }
+    .badge-small { background: rgba(16, 185, 129, 0.15); color: #6EE7B7; border: 1px solid rgba(16, 185, 129, 0.3); }
+    .badge-micro { background: rgba(139, 92, 246, 0.15); color: #C4B5FD; border: 1px solid rgba(139, 92, 246, 0.3); }
+    .badge-oem { background: rgba(239, 68, 68, 0.15); color: #FCA5A5; border: 1px solid rgba(239, 68, 68, 0.3); padding: 2px 6px; font-size: 0.65rem; border-radius: 4px; margin-left: 4px; font-weight: 700; }
+
+    /* Return formatting */
+    .ret-pos { color: #34D399; font-weight: 600; }
+    .ret-neg { color: #F87171; font-weight: 600; }
+    .ret-high { background: rgba(16, 185, 129, 0.15); padding: 2px 6px; border-radius: 4px; border: 1px solid rgba(16, 185, 129, 0.3); }
+    .progress-bar-bg { width: 60px; height: 6px; background: rgba(255, 255, 255, 0.1); border-radius: 3px; display: inline-block; margin-left: 6px; vertical-align: middle; overflow: hidden; }
+    .progress-bar-fill { height: 100%; background: linear-gradient(90deg, #10B981, #34D399); border-radius: 3px; }
+
+    /* Modal */
+    .modal-overlay { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0, 0, 0, 0.75); backdrop-filter: blur(8px); z-index: 1000; justify-content: center; align-items: center; padding: 1.5rem; }
+    .modal-card { background: var(--bg-card); border: 1px solid rgba(255, 255, 255, 0.15); border-radius: var(--radius-lg); width: 100%; max-width: 800px; max-height: 90vh; overflow-y: auto; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7); padding: 2rem; position: relative; }
+    .modal-close { position: absolute; top: 1.5rem; right: 1.5rem; background: rgba(255, 255, 255, 0.08); border: none; color: var(--text-main); width: 32px; height: 32px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; }
+    .modal-close:hover { background: rgba(239, 68, 68, 0.3); color: #F87171; }
+    .modal-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.25rem; margin: 1.5rem 0; }
+    .modal-item { background: rgba(11, 17, 32, 0.6); padding: 1rem; border-radius: var(--radius-sm); border: 1px solid var(--border-color); }
+    .modal-item-label { font-size: 0.75rem; color: var(--text-dim); text-transform: uppercase; margin-bottom: 4px; }
+    .modal-item-val { font-size: 1.1rem; font-weight: 600; color: var(--text-main); }
+    .footer { text-align: center; padding: 2rem; color: var(--text-dim); font-size: 0.8rem; border-top: 1px solid var(--border-color); }
+
+    @media (max-width: 768px) {
+      .container { padding: 1rem; }
+      .charts-grid { grid-template-columns: 1fr; }
+      .filter-panel { flex-direction: column; align-items: stretch; }
+      .modal-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Navbar -->
+  <nav class="navbar">
+    <div class="brand">
+      <div class="brand-logo">⚡</div>
+      <div>
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <span class="brand-title font-heading">India Corporate Renewables Terminal</span>
+          <span class="brand-badge">Screener.in 5,461 Stocks</span>
+        </div>
+      </div>
+    </div>
+    <div class="nav-actions">
+      <button class="btn btn-special" id="btnFilter2W3W">
+        🛵 2W & 3W OEMs (<span id="count2W3W">41</span>)
+      </button>
+      <button class="btn btn-outline" id="btnExportCSV">
+        ⬇ Export CSV
+      </button>
+      <button class="btn btn-primary" id="btnRefresh">
+        ↻ Refresh Data
+      </button>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="container">
+
+    <!-- Hero Banner -->
+    <section class="hero-banner">
+      <h1 class="hero-title">5,461 Indian Listed Companies: Clean Energy Adoption & Returns Terminal</h1>
+      <p class="hero-subtitle">
+        Extracted live from Screener.in's All Listed Companies across all 219 pages. Covering Large Caps, Mid Caps, Small Caps, and Micro Caps with captive solar/wind capacity, avoided power tariffs (annual cost shielded), and historical 1 to 6-year stock returns.
+      </p>
+    </section>
+
+    <!-- Top KPI Cards -->
+    <section class="kpi-grid">
+      <div class="kpi-card">
+        <div class="kpi-label">
+          <span>Companies Ingested</span>
+          <span>🏢</span>
+        </div>
+        <div class="kpi-value" id="kpiCompanies">5,448</div>
+        <div class="kpi-subtext">Screener.in All 219 Pages</div>
+      </div>
+
+      <div class="kpi-card">
+        <div class="kpi-label">
+          <span>Total Operational Green Capacity</span>
+          <span>⚡</span>
+        </div>
+        <div class="kpi-value" id="kpiGreenMW">23,317 MW</div>
+        <div class="kpi-subtext">Captive Solar, Wind, WHRS & Utilities</div>
+      </div>
+
+      <div class="kpi-card">
+        <div class="kpi-label">
+          <span>Total Annual Cost Shielded</span>
+          <span>💰</span>
+        </div>
+        <div class="kpi-value" id="kpiShieldCr" style="color: #34D399;">₹1,68,829 Cr</div>
+        <div class="kpi-subtext">Net savings vs DISCOM Grid Tariffs</div>
+      </div>
+
+      <div class="kpi-card">
+        <div class="kpi-label">
+          <span>Average 5-Year Equity Return</span>
+          <span>📈</span>
+        </div>
+        <div class="kpi-value" id="kpiAvg5Y" style="color: #60A5FA;">+189.1%</div>
+        <div class="kpi-subtext">Multi-year equity compounding</div>
+      </div>
+    </section>
+
+    <!-- Comprehensive Filter & Sorting Toolbar -->
+    <section class="filter-panel">
+      <!-- Row 1: Search, Market Cap Pills, Sector -->
+      <div class="filter-row">
+        <!-- Search Input with Clear button -->
+        <div class="search-box">
+          <span class="search-icon">🔍</span>
+          <input type="text" id="searchInput" class="search-input" placeholder="Search by Company Name or Ticker (e.g. Reliance, TVS, Tata Steel, Suzlon, 532)...">
+          <span class="search-clear" id="searchClearBtn" title="Clear Search">&times;</span>
+        </div>
+
+        <!-- Market Cap Pills -->
+        <div class="pill-group" id="capPills">
+          <button class="pill-btn active" data-cap="All">All Caps</button>
+          <button class="pill-btn" data-cap="Large Cap">Large Cap</button>
+          <button class="pill-btn" data-cap="Mid Cap">Mid Cap</button>
+          <button class="pill-btn" data-cap="Small Cap">Small Cap</button>
+          <button class="pill-btn" data-cap="Micro Cap">Micro Cap</button>
+        </div>
+
+        <!-- Sector Filter -->
+        <select id="sectorSelect" class="select-dropdown">
+          <option value="All">All Sectors</option>
+        </select>
+      </div>
+
+      <!-- Row 2: Advanced Metrics Filters & Sorting Preset -->
+      <div class="filter-row">
+        <!-- RE Share % Filter -->
+        <select id="reShareSelect" class="select-dropdown" title="Filter by Minimum Renewable Electricity %">
+          <option value="0">⚡ All RE Shares (%)</option>
+          <option value="20">⚡ RE Share &ge; 20%</option>
+          <option value="40">⚡ RE Share &ge; 40%</option>
+          <option value="60">⚡ RE Share &ge; 60%</option>
+          <option value="80">⚡ RE Share &ge; 80%</option>
+          <option value="90">⚡ RE Share &ge; 90% (Champions)</option>
+        </select>
+
+        <!-- Annual Cost Shielded Filter -->
+        <select id="shieldSelect" class="select-dropdown" title="Filter by Annual Utility Cost Savings">
+          <option value="0">💰 All Cost Shielded</option>
+          <option value="10">💰 Shielded &ge; ₹10 Cr</option>
+          <option value="50">💰 Shielded &ge; ₹50 Cr</option>
+          <option value="100">💰 Shielded &ge; ₹100 Cr</option>
+          <option value="500">💰 Shielded &ge; ₹500 Cr</option>
+          <option value="1000">💰 Shielded &ge; ₹1,000 Cr</option>
+        </select>
+
+        <!-- Green MW Filter -->
+        <select id="mwSelect" class="select-dropdown" title="Filter by Installed Solar/Wind MW">
+          <option value="0">🌱 All Green MW</option>
+          <option value="1">🌱 Capacity &ge; 1 MW</option>
+          <option value="5">🌱 Capacity &ge; 5 MW</option>
+          <option value="25">🌱 Capacity &ge; 25 MW</option>
+          <option value="100">🌱 Capacity &ge; 100 MW</option>
+          <option value="500">🌱 Capacity &ge; 500 MW</option>
+        </select>
+
+        <!-- 5-Year Return Filter -->
+        <select id="returnSelect" class="select-dropdown" title="Filter by Historical 5-Year Equity Return">
+          <option value="all">📈 All 5Y Returns</option>
+          <option value="pos">📈 Positive Returns (&gt; 0%)</option>
+          <option value="50">📈 5Y Return &gt; 50%</option>
+          <option value="100">📈 5Y Return &gt; 100% (2x)</option>
+          <option value="200">📈 5Y Return &gt; 200% (3x)</option>
+          <option value="500">📈 5Y Return &gt; 500% (Multibaggers)</option>
+        </select>
+
+        <!-- Stock Price Filter -->
+        <select id="priceSelect" class="select-dropdown" title="Filter by Share Price Range">
+          <option value="all">🏷️ All CMP Prices</option>
+          <option value="sub100">🏷️ Under ₹100 (Affordable)</option>
+          <option value="100-500">🏷️ ₹100 – ₹500</option>
+          <option value="500-2000">🏷️ ₹500 – ₹2,000</option>
+          <option value="above2000">🏷️ Above ₹2,000</option>
+        </select>
+
+        <!-- Sort Select Preset -->
+        <select id="sortSelect" class="select-dropdown" style="flex: 1.4; border-color: rgba(59, 130, 246, 0.4);" title="Sort Order Preset">
+          <option value="annual_shield_cr-desc">↕ Sort by: Cost Shielded (Highest First)</option>
+          <option value="annual_shield_cr-asc">↕ Sort by: Cost Shielded (Lowest First)</option>
+          <option value="re_pct-desc">↕ Sort by: RE Share % (Highest First)</option>
+          <option value="re_pct-asc">↕ Sort by: RE Share % (Lowest First)</option>
+          <option value="re_mw-desc">↕ Sort by: Green Capacity MW (Highest First)</option>
+          <option value="close_price-desc">↕ Sort by: Share Price (Highest First)</option>
+          <option value="close_price-asc">↕ Sort by: Share Price (Lowest First)</option>
+          <option value="ret_5y-desc">↕ Sort by: 5-Year Return % (Highest First)</option>
+          <option value="ret_3y-desc">↕ Sort by: 3-Year Return % (Highest First)</option>
+          <option value="ret_1y-desc">↕ Sort by: 1-Year Return % (Highest First)</option>
+          <option value="name-asc">↕ Sort by: Company Name (A to Z)</option>
+          <option value="name-desc">↕ Sort by: Company Name (Z to A)</option>
+          <option value="ticker-asc">↕ Sort by: Ticker (A to Z)</option>
+        </select>
+      </div>
+
+      <!-- Row 3: Active Filter Badges & Reset Button -->
+      <div class="active-filters-bar" id="activeFiltersBar">
+        <span class="active-filters-label">Active Filters:</span>
+        <span id="activeFilterChips" style="display: flex; flex-wrap: wrap; gap: 6px; align-items: center;">
+          <span style="color: var(--text-dim); font-size: 0.75rem;">None (Showing all companies)</span>
+        </span>
+        <button class="btn-reset-filters" id="btnResetFilters" title="Reset all filters to default">
+          ↺ Reset All Filters
+        </button>
+      </div>
+    </section>
+
+    <!-- Interactive Charts Grid -->
+    <section class="charts-grid">
+      <div class="chart-card">
+        <div class="chart-header">
+          <h3 class="chart-title">Top 8 Sectors: Green Capacity & Cost Shielded</h3>
+          <span class="chart-legend">Green MW vs ₹ Crore Shielded</span>
+        </div>
+        <div class="chart-container">
+          <canvas id="sectorChart"></canvas>
+        </div>
+      </div>
+
+      <div class="chart-card">
+        <div class="chart-header">
+          <h3 class="chart-title">Top 10 Energy Cost Shielded Champions (₹ Crore/Year)</h3>
+          <span class="chart-legend">Utility Bill Savings</span>
+        </div>
+        <div class="chart-container">
+          <canvas id="topShieldChart"></canvas>
+        </div>
+      </div>
+
+      <div class="chart-card">
+        <div class="chart-header">
+          <h3 class="chart-title">Renewable Electricity Share (%) vs 5-Year Equity Returns</h3>
+          <span class="chart-legend">Correlation Analysis</span>
+        </div>
+        <div class="chart-container">
+          <canvas id="scatterChart"></canvas>
+        </div>
+      </div>
+
+      <div class="chart-card">
+        <div class="chart-header">
+          <h3 class="chart-title">Renewable Capacity by Market Cap Tier</h3>
+          <span class="chart-legend">Large vs Mid vs Small vs Micro</span>
+        </div>
+        <div class="chart-container">
+          <canvas id="capDoughnutChart"></canvas>
+        </div>
+      </div>
+    </section>
+
+    <!-- Interactive Data Table with Clickable Header Sorting -->
+    <section class="table-container">
+      <div class="table-header-panel">
+        <div class="table-title-group">
+          <h2 class="table-title">Listed Stocks Corporate Energy & Returns Directory</h2>
+          <span class="table-badge" id="tableRecordCount">Loading...</span>
+        </div>
+        <div style="display: flex; align-items: center; gap: 12px;">
+          <span style="font-size: 0.8rem; color: var(--text-dim);">Page size:</span>
+          <select id="pageSizeSelect" class="select-dropdown" style="padding: 4px 8px; font-size: 0.8rem; min-width: 120px;">
+            <option value="25">25 per page</option>
+            <option value="50">50 per page</option>
+            <option value="100">100 per page</option>
+            <option value="250">250 per page</option>
+            <option value="500">500 per page</option>
+            <option value="all">Show All</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="table-responsive">
+        <table id="stocksTable">
+          <thead>
+            <tr>
+              <th class="sortable" data-col="name" title="Click to sort by Company Name">
+                Company Name <span class="sort-icon">⇅</span>
+              </th>
+              <th class="sortable" data-col="ticker" title="Click to sort by Ticker">
+                Ticker <span class="sort-icon">⇅</span>
+              </th>
+              <th class="sortable" data-col="cap_tier" title="Click to sort by Cap Tier">
+                Cap Tier <span class="sort-icon">⇅</span>
+              </th>
+              <th class="sortable" data-col="sector" title="Click to sort by Sector">
+                Sector <span class="sort-icon">⇅</span>
+              </th>
+              <th class="sortable" data-col="close_price" title="Click to sort by Current Market Price">
+                CMP (₹) <span class="sort-icon">⇅</span>
+              </th>
+              <th class="sortable" data-col="re_pct" title="Click to sort by Renewable Share %">
+                RE Share (%) <span class="sort-icon">⇅</span>
+              </th>
+              <th class="sortable" data-col="re_mw" title="Click to sort by Green Capacity MW">
+                Green MW <span class="sort-icon">⇅</span>
+              </th>
+              <th class="sortable sorted-desc" data-col="annual_shield_cr" title="Click to sort by Annual Cost Shielded">
+                Cost Shielded (₹ Cr) <span class="sort-icon">▼</span>
+              </th>
+              <th class="sortable" data-col="ret_1y" title="Click to sort by 1-Year Stock Return">
+                1Y Ret <span class="sort-icon">⇅</span>
+              </th>
+              <th class="sortable" data-col="ret_3y" title="Click to sort by 3-Year Stock Return">
+                3Y Ret <span class="sort-icon">⇅</span>
+              </th>
+              <th class="sortable" data-col="ret_5y" title="Click to sort by 5-Year Stock Return">
+                5Y Ret <span class="sort-icon">⇅</span>
+              </th>
+              <th class="sortable" data-col="ret_6y" title="Click to sort by 6-Year Stock Return">
+                6Y Ret <span class="sort-icon">⇅</span>
+              </th>
+              <th style="cursor: default;">Action</th>
+            </tr>
+          </thead>
+          <tbody id="tableBody">
+            <!-- Dynamic rows -->
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Pagination Footer -->
+      <div class="pagination-bar">
+        <div style="font-size: 0.85rem; color: var(--text-muted);" id="paginationInfo">
+          Showing 1 - 25 of 5,448
+        </div>
+        <div class="page-controls">
+          <button class="page-btn" id="btnFirstPage" title="First Page">&laquo; First</button>
+          <button class="page-btn" id="btnPrevPage" title="Previous Page">&lsaquo; Prev</button>
+          <span style="font-size: 0.82rem; display: flex; align-items: center; gap: 4px; padding: 0 4px;">
+            <span>Page</span>
+            <input type="number" id="pageJumpInput" class="page-input" value="1" min="1">
+            <span id="pageTotalDisplay">of 218</span>
+          </span>
+          <button class="page-btn" id="btnNextPage" title="Next Page">Next &rsaquo;</button>
+          <button class="page-btn" id="btnLastPage" title="Last Page">Last &raquo;</button>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Stock Detail Modal -->
+  <div class="modal-overlay" id="detailModal">
+    <div class="modal-card">
+      <button class="modal-close" id="modalCloseBtn">&times;</button>
+      <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 0.5rem;">
+        <h2 id="modalName" style="font-size: 1.5rem;">Company Name</h2>
+        <span id="modalCapBadge" class="badge-cap badge-large">Large Cap</span>
+      </div>
+      <div style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 1.5rem;" id="modalTickerSector">
+        NSE: TICKER | Sector: Industry
+      </div>
+
+      <div class="modal-grid">
+        <div class="modal-item">
+          <div class="modal-item-label">Renewable Electricity Share</div>
+          <div class="modal-item-val" id="modalREShare" style="color: var(--primary-light);">--%</div>
+        </div>
+        <div class="modal-item">
+          <div class="modal-item-label">Annual Cost Shielded</div>
+          <div class="modal-item-val" id="modalShieldCr" style="color: #34D399;">₹-- Cr</div>
+        </div>
+        <div class="modal-item">
+          <div class="modal-item-label">Total Installed RE Capacity</div>
+          <div class="modal-item-val" id="modalREMW">-- MW</div>
+        </div>
+        <div class="modal-item">
+          <div class="modal-item-label">Clean Energy Consumed / Year</div>
+          <div class="modal-item-val" id="modalAnnualMU">-- Million kWh (MU)</div>
+        </div>
+        <div class="modal-item">
+          <div class="modal-item-label">Tariff Spread (Savings)</div>
+          <div class="modal-item-val" id="modalTariffs">Grid: ₹-- | Solar: ₹-- (Shield: ₹--/unit)</div>
+        </div>
+        <div class="modal-item">
+          <div class="modal-item-label">Current Stock Price</div>
+          <div class="modal-item-val" id="modalPrice">₹--</div>
+        </div>
+      </div>
+
+      <div style="margin-bottom: 1.25rem;">
+        <h4 style="font-size: 0.95rem; margin-bottom: 6px; color: #93C5FD;">Historical Equity Returns</h4>
+        <div style="display: grid; grid-template-columns: repeat(6, 1fr); gap: 8px; text-align: center;" id="modalReturnsGrid">
+        </div>
+      </div>
+
+      <div style="margin-bottom: 1rem;">
+        <h4 style="font-size: 0.95rem; margin-bottom: 4px; color: var(--primary-light);">Renewable Energy Sourcing Model</h4>
+        <p style="font-size: 0.85rem; color: var(--text-main);" id="modalModel">--</p>
+      </div>
+
+      <div style="margin-bottom: 1rem;">
+        <h4 style="font-size: 0.95rem; margin-bottom: 4px; color: #FCD34D;">Decarbonization Roadmap & Net-Zero Targets</h4>
+        <p style="font-size: 0.85rem; color: var(--text-main);" id="modalTargets">--</p>
+      </div>
+
+      <div>
+        <h4 style="font-size: 0.95rem; margin-bottom: 4px; color: var(--text-dim);">Manufacturing Facilities & Plant Locations</h4>
+        <p style="font-size: 0.85rem; color: var(--text-muted);" id="modalPlants">--</p>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer">
+    India Corporate Renewables & Stock Returns Terminal v3.0 | 5,461 Listed Companies from Screener.in | Powered by FastAPI & SQLite
+  </footer>
+
+  <!-- JavaScript Logic -->
+  <script>
+    let allStocks = [];
+    let currentFiltered = [];
+    let currentPage = 1;
+    let pageSize = 25;
+    let statsData = null;
+    let is2W3WFilterActive = false;
+
+    // Sorting state
+    let currentSort = {
+      col: 'annual_shield_cr',
+      dir: 'desc'
+    };
+
+    let sectorChartInstance = null;
+    let topShieldChartInstance = null;
+    let scatterChartInstance = null;
+    let capChartInstance = null;
+
+    async function initDashboard() {
+      try {
+        const [stocksRes, statsRes, sectorsRes] = await Promise.all([
+          fetch('/api/stocks'),
+          fetch('/api/stats'),
+          fetch('/api/sectors')
+        ]);
+
+        if (stocksRes.ok && statsRes.ok) {
+          const stocksJson = await stocksRes.json();
+          allStocks = stocksJson.data;
+          statsData = await statsRes.json();
+          const sectorsList = await sectorsRes.json();
+
+          populateSectorDropdown(sectorsList);
+          renderKPICards(statsData.overall);
+          renderCharts(statsData);
+          
+          currentFiltered = [...allStocks];
+          applyFilters();
+        }
+      } catch (err) {
+        console.error("Error connecting to backend API:", err);
+      }
+    }
+
+    function populateSectorDropdown(sectors) {
+      const select = document.getElementById('sectorSelect');
+      select.innerHTML = '<option value="All">All Sectors (' + sectors.length + ')</option>';
+      sectors.forEach(s => {
+        const opt = document.createElement('option');
+        opt.value = s;
+        opt.textContent = s;
+        select.appendChild(opt);
+      });
+    }
+
+    function renderKPICards(overall) {
+      if (!overall) return;
+      document.getElementById('kpiCompanies').textContent = overall.total_companies.toLocaleString();
+      document.getElementById('kpiGreenMW').textContent = Math.round(overall.total_green_mw).toLocaleString() + ' MW';
+      document.getElementById('kpiShieldCr').textContent = '₹' + Math.round(overall.total_shield_cr).toLocaleString() + ' Cr';
+      document.getElementById('kpiAvg5Y').textContent = (overall.avg_5y_ret >= 0 ? '+' : '') + overall.avg_5y_ret + '%';
+    }
+
+    // Interactive Sorting handler for table header clicks
+    function handleHeaderSort(column) {
+      if (currentSort.col === column) {
+        // Toggle direction
+        currentSort.dir = currentSort.dir === 'asc' ? 'desc' : 'asc';
+      } else {
+        currentSort.col = column;
+        // Text columns default to ASC, numbers default to DESC
+        if (column === 'name' || column === 'ticker' || column === 'sector' || column === 'cap_tier') {
+          currentSort.dir = 'asc';
+        } else {
+          currentSort.dir = 'desc';
+        }
+      }
+
+      updateSortUI();
+      sortAndRenderData();
+    }
+
+    function updateSortUI() {
+      // Update table headers icons & classes
+      document.querySelectorAll('th.sortable').forEach(th => {
+        const col = th.dataset.col;
+        const icon = th.querySelector('.sort-icon');
+        th.classList.remove('sorted-asc', 'sorted-desc');
+        if (col === currentSort.col) {
+          if (currentSort.dir === 'asc') {
+            th.classList.add('sorted-asc');
+            icon.textContent = '▲';
+          } else {
+            th.classList.add('sorted-desc');
+            icon.textContent = '▼';
+          }
+        } else {
+          icon.textContent = '⇅';
+        }
+      });
+
+      // Synchronize dropdown preset if match exists
+      const sortSelect = document.getElementById('sortSelect');
+      const targetVal = `${currentSort.col}-${currentSort.dir}`;
+      for (let i = 0; i < sortSelect.options.length; i++) {
+        if (sortSelect.options[i].value === targetVal) {
+          sortSelect.selectedIndex = i;
+          break;
+        }
+      }
+    }
+
+    function sortAndRenderData() {
+      currentFiltered.sort((a, b) => {
+        let valA = a[currentSort.col];
+        let valB = b[currentSort.col];
+
+        if (valA === undefined || valA === null) valA = (typeof valB === 'string' ? '' : -999999);
+        if (valB === undefined || valB === null) valB = (typeof valA === 'string' ? '' : -999999);
+
+        if (typeof valA === 'string') valA = valA.toLowerCase();
+        if (typeof valB === 'string') valB = valB.toLowerCase();
+
+        if (valA < valB) return currentSort.dir === 'asc' ? -1 : 1;
+        if (valA > valB) return currentSort.dir === 'asc' ? 1 : -1;
+        return 0;
+      });
+
+      renderTablePage();
+    }
+
+    function renderTablePage() {
+      const tbody = document.getElementById('tableBody');
+      tbody.innerHTML = '';
+
+      const total = currentFiltered.length;
+      document.getElementById('tableRecordCount').textContent = `Matching ${total.toLocaleString()} Companies`;
+
+      let displayRows = [];
+      const pageJumpInput = document.getElementById('pageJumpInput');
+
+      if (pageSize === 'all') {
+        displayRows = currentFiltered;
+        document.getElementById('paginationInfo').textContent = `Showing all ${total.toLocaleString()} companies`;
+        document.getElementById('pageTotalDisplay').textContent = `of 1`;
+        pageJumpInput.value = 1;
+        pageJumpInput.disabled = true;
+        document.getElementById('btnFirstPage').disabled = true;
+        document.getElementById('btnPrevPage').disabled = true;
+        document.getElementById('btnNextPage').disabled = true;
+        document.getElementById('btnLastPage').disabled = true;
+      } else {
+        const size = parseInt(pageSize);
+        const totalPages = Math.ceil(total / size) || 1;
+        if (currentPage > totalPages) currentPage = totalPages;
+        if (currentPage < 1) currentPage = 1;
+
+        const start = (currentPage - 1) * size;
+        const end = Math.min(start + size, total);
+        displayRows = currentFiltered.slice(start, end);
+
+        document.getElementById('paginationInfo').textContent = `Showing ${total === 0 ? 0 : start + 1} - ${end} of ${total.toLocaleString()} companies`;
+        document.getElementById('pageTotalDisplay').textContent = `of ${totalPages.toLocaleString()}`;
+        pageJumpInput.value = currentPage;
+        pageJumpInput.max = totalPages;
+        pageJumpInput.disabled = false;
+
+        document.getElementById('btnFirstPage').disabled = (currentPage <= 1);
+        document.getElementById('btnPrevPage').disabled = (currentPage <= 1);
+        document.getElementById('btnNextPage').disabled = (currentPage >= totalPages);
+        document.getElementById('btnLastPage').disabled = (currentPage >= totalPages);
+      }
+
+      if (displayRows.length === 0) {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td colspan="13" style="text-align: center; padding: 3rem; color: var(--text-dim);">
+            <div style="font-size: 2rem; margin-bottom: 0.5rem;">🔍</div>
+            <div style="font-size: 1rem; color: var(--text-main); margin-bottom: 0.25rem;">No matching companies found</div>
+            <div style="font-size: 0.85rem;">Try adjusting your search query, market cap, or filter thresholds.</div>
+          </td>
+        `;
+        tbody.appendChild(tr);
+        return;
+      }
+
+      displayRows.forEach(stock => {
+        const tr = document.createElement('tr');
+        
+        let capClass = 'badge-large';
+        if (stock.cap_tier === 'Mid Cap') capClass = 'badge-mid';
+        else if (stock.cap_tier === 'Small Cap') capClass = 'badge-small';
+        else if (stock.cap_tier === 'Micro Cap') capClass = 'badge-micro';
+
+        const isOEM = (stock.sector === 'Automotive & 2W/3W' || (stock.sub_segment && (stock.sub_segment.includes('2W') || stock.sub_segment.includes('3W'))));
+        const oemBadge = isOEM ? '<span class="badge-oem">2W/3W</span>' : '';
+
+        const fmtRet = (val) => {
+          if (val === undefined || val === null) return '--';
+          const sign = val > 0 ? '+' : '';
+          const cls = val >= 0 ? 'ret-pos' : 'ret-neg';
+          const highCls = val > 100 ? ' ret-high' : '';
+          return `<span class="${cls}${highCls}">${sign}${val.toFixed(1)}%</span>`;
+        };
+
+        tr.innerHTML = `
+          <td>
+            <div style="font-weight: 600; color: var(--text-main);">${stock.name} ${oemBadge}</div>
+            <div style="font-size: 0.75rem; color: var(--text-dim);">${stock.sub_segment || ''}</div>
+          </td>
+          <td><span style="font-family: monospace; font-weight: 600; color: #93C5FD;">${stock.ticker}</span></td>
+          <td><span class="badge-cap ${capClass}">${stock.cap_tier}</span></td>
+          <td><span style="color: var(--text-muted); font-size: 0.8rem;">${stock.sector}</span></td>
+          <td style="font-weight: 600;">₹${stock.close_price.toLocaleString()}</td>
+          <td>
+            <strong>${stock.re_pct.toFixed(1)}%</strong>
+            <div class="progress-bar-bg">
+              <div class="progress-bar-fill" style="width: ${Math.min(stock.re_pct, 100)}%;"></div>
+            </div>
+          </td>
+          <td><strong>${stock.re_mw.toLocaleString()}</strong></td>
+          <td style="color: #34D399; font-weight: 700;">₹${stock.annual_shield_cr.toLocaleString()} Cr</td>
+          <td>${fmtRet(stock.ret_1y)}</td>
+          <td>${fmtRet(stock.ret_3y)}</td>
+          <td>${fmtRet(stock.ret_5y)}</td>
+          <td>${fmtRet(stock.ret_6y)}</td>
+          <td>
+            <button class="btn btn-outline" style="padding: 4px 10px; font-size: 0.75rem;" onclick="openDetailModal('${stock.ticker}')">
+              View
+            </button>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    function renderCharts(stats) {
+      const textCol = '#94A3B8';
+      const gridCol = 'rgba(255, 255, 255, 0.05)';
+
+      // 1. Sector Bar Chart
+      const ctxSector = document.getElementById('sectorChart').getContext('2d');
+      if (sectorChartInstance) sectorChartInstance.destroy();
+      const topSectors = stats.sector_breakdown.slice(0, 8);
+      sectorChartInstance = new Chart(ctxSector, {
+        type: 'bar',
+        data: {
+          labels: topSectors.map(s => s.sector.replace('&', '\n&')),
+          datasets: [
+            { label: 'Green MW', data: topSectors.map(s => s.total_mw), backgroundColor: '#3B82F6', borderRadius: 4 },
+            { label: 'Cost Shielded (₹ Cr)', data: topSectors.map(s => s.total_shield_cr), backgroundColor: '#10B981', borderRadius: 4 }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: { legend: { labels: { color: textCol, font: { size: 11 } } } },
+          scales: {
+            x: { ticks: { color: textCol, font: { size: 9 } }, grid: { display: false } },
+            y: { ticks: { color: textCol }, grid: { color: gridCol } }
+          }
+        }
+      });
+
+      // 2. Top 10 Shielded
+      const ctxTop = document.getElementById('topShieldChart').getContext('2d');
+      if (topShieldChartInstance) topShieldChartInstance.destroy();
+      const top10 = stats.top_shielded;
+      topShieldChartInstance = new Chart(ctxTop, {
+        type: 'bar',
+        data: {
+          labels: top10.map(t => t.name.length > 16 ? t.name.substring(0, 15) + '..' : t.name),
+          datasets: [{
+            label: 'Annual Cost Shielded (₹ Cr)',
+            data: top10.map(t => t.annual_shield_cr),
+            backgroundColor: 'rgba(16, 185, 129, 0.85)',
+            borderColor: '#10B981',
+            borderWidth: 1,
+            borderRadius: 4
+          }]
+        },
+        options: {
+          indexAxis: 'y',
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: { display: false },
+            tooltip: {
+              backgroundColor: 'rgba(15, 23, 42, 0.95)',
+              titleColor: '#F8FAFC',
+              titleFont: { size: 13, weight: 'bold', family: 'Outfit' },
+              bodyColor: '#94A3B8',
+              borderColor: 'rgba(16, 185, 129, 0.4)',
+              borderWidth: 1,
+              padding: 12,
+              displayColors: false,
+              callbacks: {
+                title: function(items) {
+                  if (!items.length) return '';
+                  const item = top10[items[0].dataIndex];
+                  return `${item.name} (${item.ticker})`;
+                },
+                label: function(item) {
+                  const dataObj = top10[item.dataIndex];
+                  return [
+                    `Sector: ${dataObj.sector} • ${dataObj.cap_tier}`,
+                    `💰 Cost Shielded: ₹${dataObj.annual_shield_cr.toLocaleString()} Cr / year`,
+                    `⚡ Green Capacity: ${dataObj.re_mw ? dataObj.re_mw.toLocaleString() : '--'} MW (${dataObj.re_pct}%)`,
+                    `📈 5Y Return: +${dataObj.ret_5y}%`
+                  ];
+                }
+              }
+            }
+          },
+          onClick: (evt, elements) => {
+            if (elements.length > 0) {
+              const idx = elements[0].index;
+              const item = top10[idx];
+              if (item && item.ticker) {
+                openDetailModal(item.ticker);
+              }
+            }
+          },
+          scales: {
+            x: { ticks: { color: textCol }, grid: { color: gridCol } },
+            y: { ticks: { color: textCol, font: { weight: '600', size: 11 } }, grid: { display: false } }
+          }
+        }
+      });
+
+      // 3. Scatter: RE % vs 5Y Return with Full Company Name Tooltips
+      const ctxScatter = document.getElementById('scatterChart').getContext('2d');
+      if (scatterChartInstance) scatterChartInstance.destroy();
+      const scatterPoints = allStocks.slice(0, 400).map(s => ({
+        x: s.re_pct,
+        y: Math.min(s.ret_5y, 800),
+        name: s.name,
+        ticker: s.ticker,
+        sector: s.sector,
+        cap_tier: s.cap_tier,
+        annual_shield_cr: s.annual_shield_cr,
+        close_price: s.close_price,
+        ret_5y_raw: s.ret_5y
+      }));
+
+      scatterChartInstance = new Chart(ctxScatter, {
+        type: 'scatter',
+        data: {
+          datasets: [{
+            label: 'Companies',
+            data: scatterPoints,
+            backgroundColor: '#F59E0B',
+            pointRadius: 4.5,
+            pointHoverRadius: 8,
+            pointHoverBackgroundColor: '#10B981',
+            pointHoverBorderColor: '#FFFFFF',
+            pointHoverBorderWidth: 2
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: { display: false },
+            tooltip: {
+              enabled: true,
+              backgroundColor: 'rgba(15, 23, 42, 0.95)',
+              titleColor: '#F8FAFC',
+              titleFont: { size: 13, weight: 'bold', family: 'Outfit' },
+              bodyColor: '#E2E8F0',
+              bodyFont: { size: 12, family: 'Inter' },
+              borderColor: 'rgba(245, 158, 11, 0.5)',
+              borderWidth: 1,
+              padding: 12,
+              displayColors: false,
+              callbacks: {
+                title: function(items) {
+                  if (!items.length) return '';
+                  const pt = items[0].raw;
+                  return pt.name || 'Company';
+                },
+                label: function(item) {
+                  const pt = item.raw;
+                  return [
+                    `Ticker: ${pt.ticker} • ${pt.cap_tier}`,
+                    `Sector: ${pt.sector}`,
+                    `⚡ RE Electricity Share: ${pt.x.toFixed(1)}%`,
+                    `📈 5-Year Equity Return: ${(pt.ret_5y_raw >= 0 ? '+' : '')}${pt.ret_5y_raw.toFixed(1)}%`,
+                    `💰 Annual Cost Shielded: ₹${pt.annual_shield_cr.toLocaleString()} Cr`,
+                    `🏷️ CMP: ₹${pt.close_price.toLocaleString()}`,
+                    `👉 Click dot to view full company profile`
+                  ];
+                }
+              }
+            }
+          },
+          onClick: (evt, elements) => {
+            if (elements.length > 0) {
+              const el = elements[0];
+              const pt = scatterPoints[el.index];
+              if (pt && pt.ticker) {
+                openDetailModal(pt.ticker);
+              }
+            }
+          },
+          scales: {
+            x: { title: { display: true, text: 'Renewable Electricity Share (%)', color: textCol }, ticks: { color: textCol }, grid: { color: gridCol } },
+            y: { title: { display: true, text: '5-Year Stock Return (%)', color: textCol }, ticks: { color: textCol }, grid: { color: gridCol } }
+          }
+        }
+      });
+
+      // 4. Cap Doughnut
+      const ctxCap = document.getElementById('capDoughnutChart').getContext('2d');
+      if (capChartInstance) capChartInstance.destroy();
+      const capData = stats.cap_breakdown;
+      capChartInstance = new Chart(ctxCap, {
+        type: 'doughnut',
+        data: {
+          labels: capData.map(c => c.cap_tier),
+          datasets: [{
+            data: capData.map(c => c.total_mw),
+            backgroundColor: ['#3B82F6', '#14B8A6', '#10B981', '#8B5CF6'],
+            borderWidth: 2,
+            borderColor: '#131D31'
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: { legend: { position: 'right', labels: { color: textCol } } },
+          cutout: '65%'
+        }
+      });
+    }
+
+    function applyFilters() {
+      const search = document.getElementById('searchInput').value.toLowerCase().trim();
+      const activeCap = document.querySelector('.pill-btn.active').dataset.cap;
+      const sector = document.getElementById('sectorSelect').value;
+      const minRE = parseFloat(document.getElementById('reShareSelect').value) || 0;
+      const minShield = parseFloat(document.getElementById('shieldSelect').value) || 0;
+      const minMW = parseFloat(document.getElementById('mwSelect').value) || 0;
+      const returnFilter = document.getElementById('returnSelect').value;
+      const priceFilter = document.getElementById('priceSelect').value;
+
+      // Toggle search clear icon
+      document.getElementById('searchClearBtn').style.display = search ? 'block' : 'none';
+
+      // Build active chips
+      updateActiveFilterChips(search, activeCap, sector, minRE, minShield, minMW, returnFilter, priceFilter);
+
+      currentFiltered = allStocks.filter(s => {
+        // Search filter
+        const matchesSearch = !search || s.name.toLowerCase().includes(search) || s.ticker.toLowerCase().includes(search) || s.sector.toLowerCase().includes(search);
+        
+        // Cap Tier filter
+        const matchesCap = activeCap === 'All' || s.cap_tier === activeCap;
+        
+        // Sector filter
+        const matchesSector = sector === 'All' || s.sector === sector;
+        
+        // RE share filter
+        const matchesRE = s.re_pct >= minRE;
+
+        // Shield filter
+        const matchesShield = s.annual_shield_cr >= minShield;
+
+        // MW filter
+        const matchesMW = s.re_mw >= minMW;
+
+        // Returns filter
+        let matchesReturn = true;
+        if (returnFilter === 'pos') matchesReturn = s.ret_5y > 0;
+        else if (returnFilter === '50') matchesReturn = s.ret_5y >= 50;
+        else if (returnFilter === '100') matchesReturn = s.ret_5y >= 100;
+        else if (returnFilter === '200') matchesReturn = s.ret_5y >= 200;
+        else if (returnFilter === '500') matchesReturn = s.ret_5y >= 500;
+
+        // Price filter
+        let matchesPrice = true;
+        if (priceFilter === 'sub100') matchesPrice = s.close_price < 100;
+        else if (priceFilter === '100-500') matchesPrice = (s.close_price >= 100 && s.close_price <= 500);
+        else if (priceFilter === '500-2000') matchesPrice = (s.close_price >= 500 && s.close_price <= 2000);
+        else if (priceFilter === 'above2000') matchesPrice = s.close_price > 2000;
+
+        // 2W/3W OEM filter
+        const matches2W3W = !is2W3WFilterActive || (s.sector === 'Automotive & 2W/3W' || (s.sub_segment && (s.sub_segment.includes('2W') || s.sub_segment.includes('3W'))));
+
+        return matchesSearch && matchesCap && matchesSector && matchesRE && matchesShield && matchesMW && matchesReturn && matchesPrice && matches2W3W;
+      });
+
+      currentPage = 1;
+      sortAndRenderData();
+    }
+
+    function updateActiveFilterChips(search, cap, sector, minRE, minShield, minMW, returnFilter, priceFilter) {
+      const container = document.getElementById('activeFilterChips');
+      const chips = [];
+
+      if (search) {
+        chips.push({ label: `Search: "${search}"`, onClear: () => { document.getElementById('searchInput').value = ''; applyFilters(); } });
+      }
+      if (cap !== 'All') {
+        chips.push({ label: `Cap: ${cap}`, onClear: () => {
+          document.querySelectorAll('#capPills .pill-btn').forEach(b => b.classList.toggle('active', b.dataset.cap === 'All'));
+          applyFilters();
+        }});
+      }
+      if (sector !== 'All') {
+        chips.push({ label: `Sector: ${sector}`, onClear: () => { document.getElementById('sectorSelect').value = 'All'; applyFilters(); } });
+      }
+      if (minRE > 0) {
+        chips.push({ label: `RE &ge; ${minRE}%`, onClear: () => { document.getElementById('reShareSelect').value = '0'; applyFilters(); } });
+      }
+      if (minShield > 0) {
+        chips.push({ label: `Shield &ge; ₹${minShield} Cr`, onClear: () => { document.getElementById('shieldSelect').value = '0'; applyFilters(); } });
+      }
+      if (minMW > 0) {
+        chips.push({ label: `MW &ge; ${minMW} MW`, onClear: () => { document.getElementById('mwSelect').value = '0'; applyFilters(); } });
+      }
+      if (returnFilter !== 'all') {
+        const retLabel = returnFilter === 'pos' ? '> 0%' : `> ${returnFilter}%`;
+        chips.push({ label: `5Y Ret ${retLabel}`, onClear: () => { document.getElementById('returnSelect').value = 'all'; applyFilters(); } });
+      }
+      if (priceFilter !== 'all') {
+        const pLabel = priceFilter === 'sub100' ? '< ₹100' : (priceFilter === '100-500' ? '₹100-500' : (priceFilter === '500-2000' ? '₹500-2000' : '> ₹2000'));
+        chips.push({ label: `Price: ${pLabel}`, onClear: () => { document.getElementById('priceSelect').value = 'all'; applyFilters(); } });
+      }
+      if (is2W3WFilterActive) {
+        chips.push({ label: `2W & 3W OEMs Only`, onClear: () => { toggle2W3WFilter(); } });
+      }
+
+      if (chips.length === 0) {
+        container.innerHTML = '<span style="color: var(--text-dim); font-size: 0.75rem;">None (Showing all 5,448 companies)</span>';
+      } else {
+        container.innerHTML = '';
+        chips.forEach(chip => {
+          const chipEl = document.createElement('span');
+          chipEl.className = 'filter-chip';
+          chipEl.innerHTML = `${chip.label} <span class="chip-remove">&times;</span>`;
+          chipEl.querySelector('.chip-remove').addEventListener('click', chip.onClear);
+          container.appendChild(chipEl);
+        });
+      }
+    }
+
+    function resetAllFilters() {
+      document.getElementById('searchInput').value = '';
+      document.querySelectorAll('#capPills .pill-btn').forEach(b => b.classList.toggle('active', b.dataset.cap === 'All'));
+      document.getElementById('sectorSelect').value = 'All';
+      document.getElementById('reShareSelect').value = '0';
+      document.getElementById('shieldSelect').value = '0';
+      document.getElementById('mwSelect').value = '0';
+      document.getElementById('returnSelect').value = 'all';
+      document.getElementById('priceSelect').value = 'all';
+      if (is2W3WFilterActive) toggle2W3WFilter();
+      currentSort = { col: 'annual_shield_cr', dir: 'desc' };
+      updateSortUI();
+      applyFilters();
+    }
+
+    function toggle2W3WFilter() {
+      is2W3WFilterActive = !is2W3WFilterActive;
+      const btn2W3W = document.getElementById('btnFilter2W3W');
+      if (is2W3WFilterActive) {
+        btn2W3W.style.background = '#10B981';
+        btn2W3W.style.color = '#0B1120';
+      } else {
+        btn2W3W.style.background = 'linear-gradient(135deg, #EF4444 0%, #F59E0B 100%)';
+        btn2W3W.style.color = '#FFFFFF';
+      }
+      applyFilters();
+    }
+
+    window.openDetailModal = function(ticker) {
+      const stock = allStocks.find(s => s.ticker === ticker);
+      if (!stock) return;
+
+      document.getElementById('modalName').textContent = stock.name;
+      document.getElementById('modalTickerSector').textContent = `Ticker: ${stock.ticker} | Sector: ${stock.sector} | ${stock.sub_segment || ''}`;
+      
+      const badge = document.getElementById('modalCapBadge');
+      badge.textContent = stock.cap_tier;
+      badge.className = 'badge-cap ' + (
+        stock.cap_tier === 'Large Cap' ? 'badge-large' : 
+        stock.cap_tier === 'Mid Cap' ? 'badge-mid' : 
+        stock.cap_tier === 'Small Cap' ? 'badge-small' : 'badge-micro'
+      );
+
+      document.getElementById('modalREShare').textContent = `${stock.re_pct.toFixed(1)}%`;
+      document.getElementById('modalShieldCr').textContent = `₹${stock.annual_shield_cr.toLocaleString()} Cr / yr`;
+      document.getElementById('modalREMW').textContent = `${stock.re_mw.toLocaleString()} MW`;
+      document.getElementById('modalAnnualMU').textContent = `${stock.annual_mu.toLocaleString()} MU`;
+      document.getElementById('modalTariffs').textContent = `Grid: ₹${stock.grid_tariff.toFixed(2)} | Solar: ₹${stock.solar_cost.toFixed(2)} (Savings: ₹${stock.unit_shield.toFixed(2)}/kWh)`;
+      document.getElementById('modalPrice').textContent = `₹${stock.close_price.toLocaleString()}`;
+
+      const retGrid = document.getElementById('modalReturnsGrid');
+      retGrid.innerHTML = '';
+      [1, 2, 3, 4, 5, 6].forEach(y => {
+        const retVal = stock[`ret_${y}y`];
+        const item = document.createElement('div');
+        item.style.background = 'rgba(255,255,255,0.04)';
+        item.style.padding = '8px 4px';
+        item.style.borderRadius = '6px';
+        const sign = retVal > 0 ? '+' : '';
+        const col = retVal >= 0 ? '#34D399' : '#F87171';
+        item.innerHTML = `
+          <div style="font-size: 0.7rem; color: var(--text-dim);">${y}Y Ret</div>
+          <div style="font-size: 0.85rem; font-weight: 700; color: ${col};">${sign}${retVal ? retVal.toFixed(1) : 0}%</div>
+        `;
+        retGrid.appendChild(item);
+      });
+
+      document.getElementById('modalModel').textContent = stock.primary_model || stock.re_sources;
+      document.getElementById('modalTargets').textContent = stock.targets || 'Targeting carbon neutrality and renewable expansion.';
+      document.getElementById('modalPlants').textContent = stock.plants_info || 'Key operations across industrial hubs in India.';
+
+      document.getElementById('detailModal').style.display = 'flex';
+    };
+
+    // Table Header Click Sorting Listeners
+    document.querySelectorAll('th.sortable').forEach(th => {
+      th.addEventListener('click', () => {
+        handleHeaderSort(th.dataset.col);
+      });
+    });
+
+    // Dropdown Sort Preset Listener
+    document.getElementById('sortSelect').addEventListener('change', (e) => {
+      const [col, dir] = e.target.value.split('-');
+      currentSort.col = col;
+      currentSort.dir = dir;
+      updateSortUI();
+      sortAndRenderData();
+    });
+
+    // Filters Listeners
+    document.getElementById('searchInput').addEventListener('input', applyFilters);
+    document.getElementById('searchClearBtn').addEventListener('click', () => {
+      document.getElementById('searchInput').value = '';
+      applyFilters();
+    });
+
+    document.getElementById('sectorSelect').addEventListener('change', applyFilters);
+    document.getElementById('reShareSelect').addEventListener('change', applyFilters);
+    document.getElementById('shieldSelect').addEventListener('change', applyFilters);
+    document.getElementById('mwSelect').addEventListener('change', applyFilters);
+    document.getElementById('returnSelect').addEventListener('change', applyFilters);
+    document.getElementById('priceSelect').addEventListener('change', applyFilters);
+    document.getElementById('btnResetFilters').addEventListener('click', resetAllFilters);
+
+    // Page Size
+    document.getElementById('pageSizeSelect').addEventListener('change', (e) => {
+      pageSize = e.target.value;
+      currentPage = 1;
+      renderTablePage();
+    });
+
+    // Pagination buttons
+    document.getElementById('btnFirstPage').addEventListener('click', () => {
+      if (currentPage > 1) {
+        currentPage = 1;
+        renderTablePage();
+      }
+    });
+
+    document.getElementById('btnPrevPage').addEventListener('click', () => {
+      if (currentPage > 1) {
+        currentPage--;
+        renderTablePage();
+      }
+    });
+
+    document.getElementById('btnNextPage').addEventListener('click', () => {
+      const size = parseInt(pageSize);
+      const totalPages = Math.ceil(currentFiltered.length / size);
+      if (currentPage < totalPages) {
+        currentPage++;
+        renderTablePage();
+      }
+    });
+
+    document.getElementById('btnLastPage').addEventListener('click', () => {
+      const size = parseInt(pageSize);
+      const totalPages = Math.ceil(currentFiltered.length / size);
+      if (currentPage < totalPages) {
+        currentPage = totalPages;
+        renderTablePage();
+      }
+    });
+
+    document.getElementById('pageJumpInput').addEventListener('change', (e) => {
+      let target = parseInt(e.target.value);
+      const size = parseInt(pageSize);
+      const totalPages = Math.ceil(currentFiltered.length / size) || 1;
+      if (isNaN(target) || target < 1) target = 1;
+      if (target > totalPages) target = totalPages;
+      currentPage = target;
+      renderTablePage();
+    });
+
+    // Cap Pills
+    document.querySelectorAll('#capPills .pill-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        document.querySelectorAll('#capPills .pill-btn').forEach(b => b.classList.remove('active'));
+        e.target.classList.add('active');
+        applyFilters();
+      });
+    });
+
+    // 2W / 3W OEM Toggle
+    document.getElementById('btnFilter2W3W').addEventListener('click', toggle2W3WFilter);
+
+    // Refresh & Modal
+    document.getElementById('btnRefresh').addEventListener('click', initDashboard);
+    document.getElementById('modalCloseBtn').addEventListener('click', () => {
+      document.getElementById('detailModal').style.display = 'none';
+    });
+    window.addEventListener('click', (e) => {
+      if (e.target === document.getElementById('detailModal')) {
+        document.getElementById('detailModal').style.display = 'none';
+      }
+    });
+
+    // CSV Export
+    document.getElementById('btnExportCSV').addEventListener('click', () => {
+      if (!currentFiltered || currentFiltered.length === 0) return;
+      const headers = ["Company Name", "Ticker", "Cap Tier", "Sector", "CMP", "RE %", "Green MW", "Annual Cost Shielded (Cr)", "1Y Ret %", "3Y Ret %", "5Y Ret %", "6Y Ret %"];
+      let csvContent = "data:text/csv;charset=utf-8," + headers.join(",") + "\n";
+      currentFiltered.forEach(s => {
+        csvContent += `"${s.name}","${s.ticker}","${s.cap_tier}","${s.sector}",${s.close_price},${s.re_pct},${s.re_mw},${s.annual_shield_cr},${s.ret_1y},${s.ret_3y},${s.ret_5y},${s.ret_6y}\n`;
+      });
+      const encodedUri = encodeURI(csvContent);
+      const link = document.createElement("a");
+      link.setAttribute("href", encodedUri);
+      link.setAttribute("download", "india_corporate_renewables_stocks.csv");
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    });
+
+    initDashboard();
+  </script>
+</body>
+</html>
