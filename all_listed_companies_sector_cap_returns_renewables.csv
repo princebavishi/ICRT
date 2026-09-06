@@ -1,0 +1,61 @@
+Company Name,Ticker,Cap Tier,Sector,1Y Ret (%),2Y Ret (%),3Y Ret (%),4Y Ret (%),5Y Ret (%),6Y Ret (%),RE Installed (MW),RE Power Share (%),Annual Green Units (MU),Grid Tariff (₹/kWh),Solar Cost (₹/kWh),Unit Shield (₹/kWh),Annual Cost Shielded (₹ Cr),Primary RE Model,Targets & Commitments
+Tata Motors Ltd,TATAMOTORS,Large Cap,Automotive & Ancillary,12.5,28.0,45.0,65.0,95.0,130.0,152.0,51.0,220.0,8.8,3.8,5.0,110.0,Rooftop Solar on Pune/Sanand + TPREL Hybrid,100% RE in manufacturing by 2030
+Mahindra & Mahindra Ltd,M&M,Large Cap,Automotive & Ancillary,-7.5,2.4,104.0,150.0,294.7,421.5,78.0,45.0,160.0,8.9,3.8,5.1,81.6,Group Captive Solar with Mahindra Susten,100% RE by 2030 (EP100 & RE100)
+Bharat Forge Ltd,BHARATFORG,Mid Cap,Automotive & Ancillary,61.3,29.0,79.2,181.2,165.2,337.0,52.0,36.0,135.0,8.9,3.8,5.1,68.9,Group Captive Solar in Maharashtra,Carbon Neutral by 2040
+Apollo Tyres Ltd,APOLLOTYRE,Mid Cap,Automotive & Ancillary,-8.9,-21.4,16.9,54.6,90.9,229.3,48.0,32.0,120.0,8.6,3.75,4.85,58.2,Open Access Solar in AP & Gujarat,25% Carbon Intensity cut by 2026
+CEAT Ltd,CEATLTD,Mid Cap,Automotive & Ancillary,-1.5,5.6,57.1,111.8,152.2,233.6,38.0,34.0,95.0,8.7,3.8,4.9,46.6,Rooftop Solar + Captive Solar PPA,50% RE by 2030
+Ashok Leyland Ltd,ASHOKLEY,Mid Cap,Automotive & Ancillary,18.5,43.6,91.0,121.4,152.6,354.3,55.0,60.0,115.0,8.8,3.7,5.1,58.7,Rooftop Solar & Wind PPA in Tamil Nadu,100% RE across manufacturing by 2030
+Exide Industries Ltd,EXIDEIND,Mid Cap,Automotive & Ancillary,8.6,-15.6,62.8,170.3,138.0,157.2,35.0,26.0,82.0,8.4,3.8,4.6,37.7,Rooftop Solar + Haldia captive park,50% RE by 2030
+Gabriel India Ltd,GABRIEL,Small Cap,Automotive & Ancillary,14.7,162.9,310.2,781.9,782.2,1189.1,6.5,32.0,14.0,8.9,3.8,5.1,7.1,Rooftop Solar on factory sheds,50% RE by 2028
+Lumax Auto Tech Ltd,LUMAXTECH,Small Cap,Automotive & Ancillary,56.4,247.6,440.0,596.9,1295.7,1894.6,8.0,26.0,18.0,8.8,3.8,5.0,9.0,Rooftop Solar installations,40% RE by 2030
+Subros Ltd,SUBROS,Small Cap,Automotive & Ancillary,-34.5,-6.3,82.6,95.3,116.3,177.0,5.5,22.0,12.0,8.7,3.8,4.9,5.9,Rooftop Solar PV,35% RE by 2029
+Sharda Motor Industries,SHARDAMOTR,Small Cap,Automotive & Ancillary,-15.6,-63.6,-9.7,8.2,44.7,417.7,4.5,20.0,10.0,8.8,3.8,5.0,5.0,Rooftop Solar on manufacturing units,30% RE by 2030
+Larsen & Toubro Ltd,LT,Large Cap,Capital Goods & Engineering,8.3,7.9,31.1,114.5,132.8,339.7,65.0,38.0,145.0,8.4,3.9,4.5,65.3,Rooftop & Ground Mounted Solar (Hazira/Chennai),Water & Carbon Neutral by 2040
+Cummins India Ltd,CUMMINSIND,Mid Cap,Capital Goods & Engineering,28.2,32.3,196.8,321.0,407.6,1031.0,14.0,45.0,28.0,8.9,3.8,5.1,14.3,Rooftop Solar installations,"Planet 2050 target, 50% RE by 2030"
+Supreme Industries Ltd,SUPREMEIND,Mid Cap,Capital Goods & Engineering,-17.6,-34.7,-15.7,62.9,48.9,148.1,32.0,28.0,75.0,8.5,3.75,4.75,35.6,Rooftop Solar on all manufacturing units,40% RE by 2028
+UltraTech Cement Ltd,ULTRACEMCO,Large Cap,Cement & Building Materials,-6.7,-3.3,38.2,82.4,54.2,181.7,1363.0,32.0,3600.0,8.2,3.8,4.4,1584.0,Group Captive Solar/Wind + WHRS,"85% Green by 2030, RE100 (100% by 2050)"
+Shree Cement Ltd,SHREECEM,Mid Cap,Cement & Building Materials,-18.5,-9.3,-6.3,13.4,-17.5,17.8,666.5,58.0,1950.0,8.1,3.6,4.5,877.5,Captive Solar/Wind parks + WHRS integration,Reach >65% Green Power by 2027
+Dalmia Bharat Ltd,DALBHARAT,Mid Cap,Cement & Building Materials,-21.3,-9.4,-27.1,9.6,-16.8,124.2,410.0,47.0,850.0,8.0,3.7,4.3,365.5,"RE100, Captive Solar + Open Access","100% RE by 2030, Carbon Negative 2040"
+The Ramco Cements Ltd,RAMCOCEM,Mid Cap,Cement & Building Materials,-10.5,1.7,-3.1,16.9,-10.4,17.1,215.0,42.0,480.0,8.3,3.75,4.55,218.4,Captive Wind farms in TN + Rooftop Solar,60% RE by 2030
+Sagar Cements Ltd,SAGCEM,Small Cap,Cement & Building Materials,-38.4,-33.9,-34.5,-23.3,-48.2,47.8,25.5,36.0,78.0,8.1,3.7,4.4,34.3,Captive Solar Plant at Mattampally & WHRS,50% Green Power by 2028
+Orient Cement Ltd,ORIENTCEM,Small Cap,Cement & Building Materials,-40.8,-55.3,-27.2,0.1,-18.4,111.8,50.0,38.0,110.0,8.0,3.75,4.25,46.8,Solar PPA with Cleantech + WHRS,55% Green Power by 2030
+Birla Corporation Ltd,BIRLACORPN,Small Cap,Cement & Building Materials,-26.8,-29.6,-27.5,-6.6,-37.9,33.9,55.0,30.0,135.0,8.1,3.75,4.35,58.7,Onsite Solar + Open access wind/solar,45% RE by 2029
+Kajaria Ceramics Ltd,KAJARIACER,Small Cap,Cement & Building Materials,5.8,-15.8,-6.6,2.9,3.2,123.1,12.5,24.0,28.0,8.5,3.7,4.8,13.4,Factory Rooftop Solar PV,35% RE by 2028
+Somany Ceramics Ltd,SOMANYCERA,Small Cap,Cement & Building Materials,24.7,-23.6,-19.6,1.8,-26.3,185.8,8.5,20.0,18.0,8.6,3.75,4.85,8.7,Onsite Rooftop Solar,30% RE by 2028
+Grasim Industries Ltd,GRASIM,Large Cap,Chemicals & Petrochemicals,20.5,18.8,71.7,99.1,99.8,348.2,185.0,24.0,450.0,7.9,3.8,4.1,184.5,Group Captive Solar/Wind + Biomass,50% RE by 2030
+Asian Paints Ltd,ASIANPAINT,Large Cap,Chemicals & Petrochemicals,7.5,-24.1,-20.0,-24.4,-22.1,27.2,42.0,61.0,88.0,8.6,3.75,4.85,42.7,Rooftop Solar on all 8 plants + Wind PPAs,75% RE by 2028
+SRF Ltd,SRF,Mid Cap,Chemicals & Petrochemicals,-9.8,2.0,13.2,1.7,12.9,208.3,65.0,22.0,160.0,8.0,3.85,4.15,66.4,Open Access Solar in Rajasthan & MP,35% RE by 2028
+PI Industries Ltd,PIIND,Mid Cap,Chemicals & Petrochemicals,-29.8,-47.1,-28.6,-17.8,-22.4,25.0,28.0,31.0,65.0,8.2,3.7,4.5,29.3,Onsite Rooftop Solar + Offsite Open Access,45% RE by 2030
+Reliance Industries Ltd,RELIANCE,Large Cap,Conglomerates & Diversified,-3.1,-10.5,12.8,20.5,13.7,28.2,247.0,10.0,1200.0,7.8,3.4,4.4,528.0,Captive Mega-Hubs + 28k Tower Solar,"100 GW RE by 2030, Net Zero 2035"
+Adani Ports and SEZ Ltd,ADANIPORTS,Large Cap,Conglomerates & Diversified,21.6,17.9,106.9,108.0,131.4,399.6,65.0,39.0,130.0,8.0,3.7,4.3,55.9,Rooftop & Port Land Solar PV,"Carbon Neutral by 2025, 100% RE by 2030"
+ITC Limited,ITC,Large Cap,FMCG & Consumer Goods,-34.2,-47.1,-38.3,-17.4,16.1,59.7,195.0,52.0,420.0,8.5,3.75,4.75,199.5,Offsite Solar/Wind + Biomass boilers,>50% RE maintained; Sustainability 2.0
+Titan Company Ltd,TITAN,Large Cap,FMCG & Consumer Goods,49.1,31.3,59.4,92.6,132.2,317.9,18.0,72.0,42.0,8.7,3.7,5.0,21.0,Dedicated Solar Park + Rooftop Solar,100% RE across manufacturing by 2027
+Marico Ltd,MARICO,Mid Cap,FMCG & Consumer Goods,16.9,17.2,45.1,51.6,48.9,124.6,16.0,65.0,32.0,8.5,3.7,4.8,15.4,Rooftop Solar on 100% of owned factories,Net Zero emissions by 2040
+Godrej Consumer Products,GODREJCP,Mid Cap,FMCG & Consumer Goods,-24.8,-37.0,-11.5,-3.6,-14.7,21.1,18.0,42.0,38.0,8.6,3.75,4.85,18.4,Onsite Rooftop Solar + Green Tariff,100% RE by 2030
+Voltas Ltd,VOLTAS,Mid Cap,FMCG & Consumer Goods,-13.6,-36.6,35.5,29.1,-3.9,72.0,8.5,40.0,16.0,8.7,3.75,4.95,7.9,Factory Rooftop Solar PV,50% RE by 2030
+Jubilant FoodWorks Ltd,JUBLFOOD,Mid Cap,FMCG & Consumer Goods,-21.8,-29.2,-9.5,-22.5,-40.3,2.9,12.0,35.0,24.0,9.4,4.1,5.3,12.7,Green Open Access PPA for central kitchens,50% RE by 2030
+Infosys Ltd,INFY,Large Cap,IT & Software Services,-21.6,-39.8,-21.3,-20.1,-32.5,12.1,60.0,77.7,285.0,9.2,3.5,5.7,162.5,Campus Rooftop PV + Green Tariffs,"RE100 Signatory, 100% RE electricity target"
+Wipro Ltd,WIPRO,Large Cap,IT & Software Services,-26.3,-34.8,-13.1,-10.5,-44.4,12.5,45.0,68.0,190.0,9.1,3.6,5.5,104.5,PPA Open Access Solar + Campus Rooftop,"RE100, Net Zero GHG by 2040"
+Tech Mahindra Ltd,TECHM,Large Cap,IT & Software Services,14.0,1.2,30.6,58.3,15.7,101.7,25.0,58.0,72.0,9.3,3.6,5.7,41.0,Green Tariffs + Campus Solar,"RE100, 100% RE by 2030"
+HCL Technologies Ltd,HCLTECH,Large Cap,IT & Software Services,-6.6,-28.0,4.7,38.7,1.1,59.4,32.0,62.0,110.0,9.2,3.65,5.55,61.1,Campus Rooftop PV + Green Open Access,"RE100, Net Zero by 2040"
+Tata Steel Ltd,TATASTEEL,Large Cap,Metals & Mining,11.9,12.0,46.5,90.1,46.5,424.8,1036.0,16.0,2100.0,8.0,3.9,4.1,861.0,Group Captive PPA with TPREL,"50% Green by 2030, Net Zero 2045"
+JSW Steel Ltd,JSWSTEEL,Large Cap,Metals & Mining,16.0,28.6,70.0,109.8,98.3,377.0,782.0,14.0,1750.0,7.9,3.85,4.05,708.8,Group Captive PPA with JSW Energy,"1,000 MW Phase 1 + 1,500 MW Ph 2, Net Zero 2050"
+Hindalco Industries Ltd,HINDALCO,Large Cap,Metals & Mining,32.7,33.7,105.2,158.9,107.2,476.9,190.0,8.0,650.0,7.5,3.8,3.7,240.5,RTC RE PPA with Greenko (Pumped Hydro),"350 MW RTC RE for smelters, Net Zero 2050"
+Jindal Stainless Ltd,JINDALSTEL,Mid Cap,Metals & Mining,9.5,12.1,66.1,171.8,199.3,523.5,300.0,18.0,650.0,7.8,3.8,4.0,260.0,Captive Hybrid PPA with ReNew & Rooftop,50% Carbon Reduction by 2035
+Sun Pharmaceutical Ltd,SUNPHARMA,Large Cap,Pharmaceuticals & Healthcare,19.1,-1.4,63.9,100.2,132.1,279.5,38.0,35.0,95.0,8.5,3.85,4.65,44.2,Onsite Rooftop + Open Access Solar,50% RE by 2030
+Biocon Ltd,BIOCON,Mid Cap,Pharmaceuticals & Healthcare,16.5,9.4,46.0,36.6,9.6,-11.2,22.0,48.0,58.0,8.8,3.8,5.0,29.0,Open Access Solar with CleanMax,70% RE by 2028
+NTPC Ltd (Captive & Green),NTPC,Large Cap,Power Utilities & Cleantech,-2.3,-25.0,35.4,108.3,134.4,290.7,3500.0,12.0,4500.0,6.5,3.1,3.4,1530.0,Utility Solar + Floating Solar at Reservoirs,60 GW RE by 2032 (NTPC Green Energy)
+Tata Power Co Ltd,TATAPOWER,Mid Cap,Power Utilities & Cleantech,-5.3,-23.7,40.3,70.0,131.8,590.4,5500.0,40.0,7200.0,7.8,3.3,4.5,3240.0,Utility RE + Group Captive Solar Developer,100% Clean Energy by 2045
+JSW Energy Ltd,JSWENERGY,Mid Cap,Power Utilities & Cleantech,1.7,-26.4,23.4,79.7,38.5,857.2,3200.0,45.0,4800.0,7.7,3.25,4.45,2136.0,"Solar, Wind & Pumped Hydro Developer","20 GW by 2030, 85% RE share"
+Borosil Renewables Ltd,BORORENEW,Small Cap,Power Utilities & Cleantech,-12.9,1.5,16.4,-14.3,61.8,584.2,10.0,30.0,24.0,8.2,3.6,4.6,11.0,Captive Solar PV + Solar Glass production,50% RE by 2030
+KPI Green Energy Ltd,KPIGREEN,Small Cap,Power Utilities & Cleantech,-29.9,-46.6,68.2,221.0,2072.3,1919.3,165.0,95.0,280.0,7.8,3.1,4.7,131.6,Developer of Solar Parks & Group Captive,Reach 2.5 GW green capacity by 2026
+Gensol Engineering Ltd,GENSOL,Small Cap,Power Utilities & Cleantech,-58.3,-97.9,-97.4,-97.2,-97.2,-97.2,85.0,80.0,140.0,7.9,3.2,4.7,65.8,Solar EPC Developer & Captive Assets,1 GW renewable development portfolio
+Suzlon Energy Ltd,SUZLON,Small Cap,Power Utilities & Cleantech,-17.6,-43.3,75.8,467.7,665.7,1603.1,120.0,75.0,210.0,7.8,3.2,4.6,96.6,Wind OEM powering manufacturing green,100% RE in own plants by 2028
+Inox Wind Ltd,INOXWIND,Small Cap,Power Utilities & Cleantech,-46.9,-68.7,54.2,101.6,203.7,663.1,80.0,70.0,150.0,7.9,3.3,4.6,69.0,Wind Turbine manufacturing + Hybrid plants,Net Zero operations by 2030
+Orient Green Power Co,GREENPOWER,Small Cap,Power Utilities & Cleantech,-28.0,-54.9,-28.6,20.2,223.7,457.5,402.0,100.0,620.0,7.6,3.3,4.3,266.6,Independent Power Producer (IPP),1 GW green energy portfolio
+Sterling & Wilson RE Ltd,SWSOLAR,Small Cap,Power Utilities & Cleantech,-22.7,-69.6,-48.1,-39.6,-53.2,-17.1,25.0,65.0,45.0,8.5,3.5,5.0,22.5,EPC & captive solar solutions,Global leader in utility solar EPC
+Waaree Energies Ltd,WAAREE,Small Cap,Power Utilities & Cleantech,12.5,28.0,45.0,65.0,95.0,130.0,55.0,70.0,110.0,8.0,3.2,4.8,52.8,Captive Solar PV for module gigafactories,100% Green Manufacturing by 2028
+Bharti Airtel Ltd (Nxtra),BHARTIARTL,Large Cap,Telecom & Data Centers,-2.0,7.6,98.6,130.0,167.3,345.3,120.0,49.0,483.0,9.5,4.2,5.3,256.0,Open Access Solar/Wind + Distributed Rooftop,RE100 (100% RE in Nxtra Data Centers by 2030)
+KPR Mill Ltd,KPRMILL,Small Cap,Textiles & Apparel,11.2,24.1,57.2,120.9,178.4,810.6,191.9,100.0,450.0,8.2,3.4,4.8,216.0,Captive Wind & Solar Parks (100% self-reliant),100% RE achieved in FY26
+Welspun Living Ltd,WELSPUNLIV,Small Cap,Textiles & Apparel,82.2,27.7,72.1,183.8,23.4,211.9,35.0,48.0,85.0,8.1,3.6,4.5,38.3,Rooftop Solar on mega textile parks,100% RE by 2030 (RE100 member)
+Arvind Ltd,ARVIND,Small Cap,Textiles & Apparel,82.0,49.1,218.6,480.3,485.5,1531.3,28.0,38.0,62.0,8.2,3.65,4.55,28.2,Largest rooftop solar installations in textiles,50% RE by 2028
