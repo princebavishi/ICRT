@@ -47,59 +47,91 @@ export default function DetailModal({ company, onClose }) {
 
           {/* Header */}
           <div className="mb-5 pr-8">
-            <div className="flex items-center gap-2 mb-1">
+            <div className="flex items-center gap-2 mb-1 flex-wrap">
               <h2 className="text-xl font-bold tracking-tight text-text-primary">
                 {company.name}
               </h2>
               <span className="px-2 py-0.5 rounded text-xs font-semibold bg-surface border border-border text-text-secondary">
                 {company.cap_tier}
               </span>
+              {company.brsr_status && (
+                <span className="px-2 py-0.5 rounded text-[11px] font-bold bg-accent/10 border border-accent/20 text-accent">
+                  {company.brsr_status}
+                </span>
+              )}
             </div>
             <p className="text-xs text-text-secondary">
               Ticker: <span className="font-semibold text-text-primary">{company.ticker}</span> • Sector: {company.sector} {company.sub_segment ? `• ${company.sub_segment}` : ''}
             </p>
           </div>
 
-          {/* 6 Metric Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-5">
-            <div className="p-3.5 rounded-btn bg-surface border border-border">
-              <div className="text-[11px] font-medium uppercase tracking-wider text-text-secondary mb-1">
+          {/* Key Metrics Grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-5">
+            <div className="p-3 rounded-btn bg-surface border border-border">
+              <div className="text-[10px] font-medium uppercase tracking-wider text-text-secondary mb-0.5">
+                Market Capitalization
+              </div>
+              <div className="text-base font-bold text-text-primary">
+                {company.market_cap_cr ? `₹${company.market_cap_cr.toLocaleString()} Cr` : '--'}
+              </div>
+            </div>
+
+            <div className="p-3 rounded-btn bg-surface border border-border">
+              <div className="text-[10px] font-medium uppercase tracking-wider text-text-secondary mb-0.5">
+                Price-to-Earnings (P/E)
+              </div>
+              <div className="text-base font-bold text-text-primary">
+                {company.pe && company.pe > 0 ? `${company.pe.toFixed(1)}x` : '--'}
+              </div>
+            </div>
+
+            <div className="p-3 rounded-btn bg-surface border border-border">
+              <div className="text-[10px] font-medium uppercase tracking-wider text-text-secondary mb-0.5">
+                ROCE (%)
+              </div>
+              <div className="text-base font-bold text-accent">
+                {company.roce && company.roce > 0 ? `${company.roce.toFixed(1)}%` : '--'}
+              </div>
+            </div>
+
+            <div className="p-3 rounded-btn bg-surface border border-border">
+              <div className="text-[10px] font-medium uppercase tracking-wider text-text-secondary mb-0.5">
                 Renewable Electricity Share
               </div>
-              <div className="text-lg font-bold text-text-primary">
+              <div className="text-base font-bold text-text-primary">
                 {company.re_pct.toFixed(1)}%
               </div>
             </div>
 
-            <div className="p-3.5 rounded-btn bg-surface border border-border">
-              <div className="text-[11px] font-medium uppercase tracking-wider text-text-secondary mb-1">
+            <div className="p-3 rounded-btn bg-surface border border-border">
+              <div className="text-[10px] font-medium uppercase tracking-wider text-text-secondary mb-0.5">
                 Annual Power Cost Shielded
               </div>
-              <div className="text-lg font-bold text-accent">
+              <div className="text-base font-bold text-accent">
                 ₹{company.annual_shield_cr.toLocaleString()} Cr / yr
               </div>
             </div>
 
-            <div className="p-3.5 rounded-btn bg-surface border border-border">
-              <div className="text-[11px] font-medium uppercase tracking-wider text-text-secondary mb-1">
+            <div className="p-3 rounded-btn bg-surface border border-border">
+              <div className="text-[10px] font-medium uppercase tracking-wider text-text-secondary mb-0.5">
                 Installed Green Capacity
               </div>
-              <div className="text-lg font-bold text-text-primary">
+              <div className="text-base font-bold text-text-primary">
                 {company.re_mw.toLocaleString()} MW
               </div>
             </div>
 
-            <div className="p-3.5 rounded-btn bg-surface border border-border">
-              <div className="text-[11px] font-medium uppercase tracking-wider text-text-secondary mb-1">
+            <div className="p-3 rounded-btn bg-surface border border-border">
+              <div className="text-[10px] font-medium uppercase tracking-wider text-text-secondary mb-0.5">
                 Annual Green Generation
               </div>
-              <div className="text-lg font-bold text-text-primary">
+              <div className="text-base font-bold text-text-primary">
                 {company.annual_mu ? `${company.annual_mu.toLocaleString()} MU` : '--'}
               </div>
             </div>
 
-            <div className="p-3.5 rounded-btn bg-surface border border-border">
-              <div className="text-[11px] font-medium uppercase tracking-wider text-text-secondary mb-1">
+            <div className="p-3 rounded-btn bg-surface border border-border">
+              <div className="text-[10px] font-medium uppercase tracking-wider text-text-secondary mb-0.5">
                 Tariff Spread (Savings)
               </div>
               <div className="text-xs font-semibold text-text-primary">
@@ -110,11 +142,11 @@ export default function DetailModal({ company, onClose }) {
               </div>
             </div>
 
-            <div className="p-3.5 rounded-btn bg-surface border border-border">
-              <div className="text-[11px] font-medium uppercase tracking-wider text-text-secondary mb-1">
+            <div className="p-3 rounded-btn bg-surface border border-border">
+              <div className="text-[10px] font-medium uppercase tracking-wider text-text-secondary mb-0.5">
                 Current Market Price (CMP)
               </div>
-              <div className="text-lg font-bold text-text-primary">
+              <div className="text-base font-bold text-text-primary">
                 ₹{company.close_price.toLocaleString()}
               </div>
             </div>
@@ -159,6 +191,18 @@ export default function DetailModal({ company, onClose }) {
               {company.targets || 'Targeting net-zero scope 1 and scope 2 emissions through phased renewable expansion.'}
             </p>
           </div>
+
+          {/* Scope 1 & 2 Reduction */}
+          {company.scope1_2_reduction && (
+            <div className="mb-4">
+              <h4 className="text-xs font-semibold uppercase tracking-wider text-text-secondary mb-1">
+                Scope 1 &amp; 2 Decarbonization Progress
+              </h4>
+              <p className="text-xs sm:text-sm text-accent font-medium leading-relaxed">
+                {company.scope1_2_reduction}
+              </p>
+            </div>
+          )}
 
           {/* Plants */}
           <div>

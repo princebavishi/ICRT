@@ -22,7 +22,9 @@ export default function StocksTable({
     { id: 'ticker', label: 'Ticker', align: 'left', desc: 'NSE/BSE Trading Ticker' },
     { id: 'cap_tier', label: 'Cap Tier', align: 'left', desc: 'Market Capitalization Tier' },
     { id: 'sector', label: 'Sector', align: 'left', desc: 'Primary Industry Sector' },
+    { id: 'market_cap_cr', label: 'Market Cap (₹ Cr)', align: 'right', desc: 'Market Capitalization in ₹ Crores' },
     { id: 'close_price', label: 'CMP (₹)', align: 'right', desc: 'Current Market Price' },
+    { id: 'pe', label: 'P/E', align: 'right', desc: 'Price to Earnings Ratio' },
     { id: 're_pct', label: 'RE Share (%)', align: 'right', desc: 'Renewable Electricity %' },
     { id: 're_mw', label: 'Green MW', align: 'right', desc: 'Captive/PPA Solar & Wind Capacity' },
     { id: 'annual_shield_cr', label: 'Cost Shielded (₹ Cr)', align: 'right', desc: 'Annual Avoided Grid Tariff Bill' },
@@ -132,7 +134,7 @@ export default function StocksTable({
           <tbody className="divide-y divide-border-subtle bg-white">
             {isLoading ? (
               <tr>
-                <td colSpan={13} className="text-center py-14 text-text-secondary">
+                <td colSpan={15} className="text-center py-14 text-text-secondary">
                   <div className="flex items-center justify-center gap-2.5">
                     <div className="w-4 h-4 rounded-full border-2 border-accent border-t-transparent animate-spin" />
                     <span className="text-sm font-medium">One moment… retrieving corporate database</span>
@@ -141,7 +143,7 @@ export default function StocksTable({
               </tr>
             ) : paginatedRows.length === 0 ? (
               <tr>
-                <td colSpan={13} className="text-center py-14 text-text-secondary">
+                <td colSpan={15} className="text-center py-14 text-text-secondary">
                   <div className="text-base font-medium text-text-primary mb-1">
                     No matching companies found
                   </div>
@@ -196,9 +198,19 @@ export default function StocksTable({
                       {stock.sector}
                     </td>
 
+                    {/* Market Cap */}
+                    <td className="py-2.5 px-3.5 whitespace-nowrap text-right font-medium text-text-primary">
+                      {stock.market_cap_cr ? `₹${Math.round(stock.market_cap_cr).toLocaleString()}` : '--'}
+                    </td>
+
                     {/* CMP */}
                     <td className="py-2.5 px-3.5 whitespace-nowrap text-right font-semibold text-text-primary">
                       ₹{stock.close_price.toLocaleString()}
+                    </td>
+
+                    {/* P/E */}
+                    <td className="py-2.5 px-3.5 whitespace-nowrap text-right text-text-secondary">
+                      {stock.pe && stock.pe > 0 ? stock.pe.toFixed(1) : '--'}
                     </td>
 
                     {/* RE % */}

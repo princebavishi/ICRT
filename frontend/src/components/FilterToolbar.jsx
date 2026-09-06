@@ -98,11 +98,14 @@ export default function FilterToolbar({
 
   // Sort options
   const sortOptions = [
+    { value: 'market_cap_cr-desc', label: 'Sort: Market Cap (Highest)' },
+    { value: 'market_cap_cr-asc', label: 'Sort: Market Cap (Lowest)' },
     { value: 'annual_shield_cr-desc', label: 'Sort: Cost Shielded (Highest)' },
     { value: 'annual_shield_cr-asc', label: 'Sort: Cost Shielded (Lowest)' },
     { value: 're_pct-desc', label: 'Sort: RE Share % (Highest)' },
     { value: 're_pct-asc', label: 'Sort: RE Share % (Lowest)' },
     { value: 're_mw-desc', label: 'Sort: Green MW (Highest)' },
+    { value: 'pe-asc', label: 'Sort: P/E Ratio (Lowest / Value)' },
     { value: 'close_price-desc', label: 'Sort: Share Price (Highest)' },
     { value: 'close_price-asc', label: 'Sort: Share Price (Lowest)' },
     { value: 'ret_5y-desc', label: 'Sort: 5Y Return % (Highest)' },
