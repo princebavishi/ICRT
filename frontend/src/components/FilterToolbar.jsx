@@ -120,9 +120,9 @@ export default function FilterToolbar({
     <section className="mb-6 p-5 rounded-card bg-surface border border-border shadow-soft flex flex-col gap-3.5">
       
       {/* Row 1: Search, Market Cap Pills, Sector Custom Select */}
-      <div className="flex flex-wrap items-center gap-3 w-full">
+      <div className="flex flex-wrap items-center gap-2.5 sm:gap-3 w-full">
         {/* Search Input */}
-        <div className="relative flex-[2] min-w-[260px]">
+        <div className="relative flex-[2] min-w-[240px] w-full sm:w-auto">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-text-secondary pointer-events-none" />
           <input
             type="text"
@@ -144,14 +144,14 @@ export default function FilterToolbar({
           )}
         </div>
 
-        {/* Market Cap Pills */}
-        <div className="flex bg-white border border-border rounded-btn p-1 gap-1">
+        {/* Market Cap Pills (Mobile horizontal scrollable) */}
+        <div className="flex bg-white border border-border rounded-btn p-1 gap-1 overflow-x-auto max-w-full scrollbar-none shrink-0">
           {capTiers.map((cap) => (
             <motion.button
               key={cap}
               {...INTERACTIVE_MOTION}
               onClick={() => onCapChange(cap)}
-              className={`px-3 py-1 rounded-btn text-xs font-medium transition-all ${
+              className={`px-2.5 sm:px-3 py-1 rounded-btn text-xs font-medium whitespace-nowrap transition-all ${
                 activeCap === cap
                   ? 'bg-accent text-white shadow-sm'
                   : 'text-text-secondary hover:text-text-primary hover:bg-surface'
