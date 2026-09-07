@@ -1,9 +1,11 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { MODAL_BACKDROP, MODAL_CARD, INTERACTIVE_MOTION } from '../motionVariants';
-import { X } from 'lucide-react';
+import { X, Link2, Check, Share2, MessageCircle } from 'lucide-react';
 
-export default function DetailModal({ company, onClose }) {
+export default function DetailModal({ company, onClose, onNotify }) {
+  const [isCopied, setIsCopied] = useState(false);
+
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (e.key === 'Escape') onClose();
@@ -14,9 +16,37 @@ export default function DetailModal({ company, onClose }) {
 
   if (!company) return null;
 
+  const shareUrl = typeof window !== 'undefined' 
+    ? `${window.location.origin}${window.location.pathname}?symbol=${company.ticker}`
+    : `https://frontend-nu-pearl-92.vercel.app/?symbol=${company.ticker}`;
+
+  const handleCopyLink = async () => {
+    try {
+      await navigator.clipboard.writeText(shareUrl);
+      setIsCopied(true);
+      if (onNotify) onNotify(`✓ Copied ${company.ticker} dossier link to clipboard!`);
+      setTimeout(() => setIsCopied(false), 2500);
+    } catch (err) {
+      console.error('Failed to copy link:', err);
+    }
+  };
+
+  const shareText = `Check out ${company.name} (${company.ticker})'s clean energy metrics on India Corporate Renewables Terminal: ${company.re_pct}% RE share, ${company.re_mw} MW Green Capacity, saving ₹${company.annual_shield_cr} Cr/yr!`;
+
+  const handleWhatsAppShare = () => {
+    const url = `https://api.whatsapp.com/send?text=${encodeURIComponent(shareText + '\n' + shareUrl)}`;
+    window.open(url, '_blank', 'noopener,noreferrer');
+  };
+
+  const handleTwitterShare = () => {
+    const tweetText = `${company.name} ($${company.ticker}) powers ${company.re_pct}% of electricity from renewables, shielding ₹${company.annual_shield_cr} Cr/yr in power costs! ⚡🌱\n\nExplore the full renewable dossier on @ICRT:`;
+    const url = `https://twitter.com/intent/tweet?text=${encodeURIComponent(tweetText)}&url=${encodeURIComponent(shareUrl)}&hashtags=RenewableEnergy,IndianStockMarket,BRSR`;
+    window.open(url, '_blank', 'noopener,noreferrer');
+  };
+
   return (
     <AnimatePresence>
-      <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+      <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4">
         {/* Backdrop */}
         <motion.div
           variants={MODAL_BACKDROP}
@@ -33,22 +63,22 @@ export default function DetailModal({ company, onClose }) {
           initial="hidden"
           animate="visible"
           exit="exit"
-          className="relative w-full max-w-2xl max-h-[90vh] overflow-y-auto bg-white border border-border rounded-card p-6 sm:p-7 shadow-soft z-10"
+          className="relative w-full max-w-2xl 2xl:max-w-3xl max-h-[92vh] overflow-y-auto bg-white border border-border rounded-card p-4 sm:p-7 shadow-soft z-10"
         >
           {/* Close button */}
           <motion.button
             {...INTERACTIVE_MOTION}
             onClick={onClose}
-            className="absolute top-5 right-5 p-1.5 rounded-btn bg-surface border border-border text-text-secondary hover:text-text-primary transition-colors"
+            className="absolute top-4 right-4 sm:top-5 sm:right-5 p-1.5 rounded-btn bg-surface border border-border text-text-secondary hover:text-text-primary transition-colors"
             title="Close"
           >
             <X className="w-4 h-4" />
           </motion.button>
 
           {/* Header */}
-          <div className="mb-5 pr-8">
+          <div className="mb-4 pr-8">
             <div className="flex items-center gap-2 mb-1 flex-wrap">
-              <h2 className="text-xl font-bold tracking-tight text-text-primary">
+              <h2 className="text-lg sm:text-xl font-bold tracking-tight text-text-primary">
                 {company.name}
               </h2>
               <span className="px-2 py-0.5 rounded text-xs font-semibold bg-surface border border-border text-text-secondary">
@@ -65,8 +95,55 @@ export default function DetailModal({ company, onClose }) {
             </p>
           </div>
 
-          {/* Key Metrics Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-5">
+          {/* Share Dossier Bar */}
+          <div className="mb-5 p-2.5 rounded-btn bg-surface border border-border flex items-center justify-between flex-wrap gap-2">
+            <div className="flex items-center gap-1.5 text-xs font-semibold text-text-secondary">
+              <Share2 className="w-3.5 h-3.5 text-accent" />
+              <span>Share Dossier:</span>
+            </div>
+
+            <div className="flex items-center gap-1.5 sm:gap-2 flex-wrap">
+              {/* Copy Direct URL */}
+              <motion.button
+                {...INTERACTIVE_MOTION}
+                onClick={handleCopyLink}
+                className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-[5px] text-xs font-medium border transition-colors ${
+                  isCopied
+                    ? 'bg-emerald-500 text-white border-emerald-600'
+                    : 'bg-white text-text-primary border-border hover:bg-border-subtle'
+                }`}
+                title="Copy shareable direct link to this company dossier"
+              >
+                {isCopied ? <Check className="w-3.5 h-3.5" /> : <Link2 className="w-3.5 h-3.5 text-text-secondary" />}
+                <span>{isCopied ? 'Copied Link!' : 'Copy Link'}</span>
+              </motion.button>
+
+              {/* WhatsApp Share */}
+              <motion.button
+                {...INTERACTIVE_MOTION}
+                onClick={handleWhatsAppShare}
+                className="inline-flex items-center gap-1 px-2.5 py-1 rounded-[5px] text-xs font-medium bg-[#25D366]/10 text-[#128C7E] border border-[#25D366]/30 hover:bg-[#25D366]/20 transition-colors"
+                title="Share dossier on WhatsApp"
+              >
+                <MessageCircle className="w-3.5 h-3.5" />
+                <span className="hidden sm:inline">WhatsApp</span>
+              </motion.button>
+
+              {/* X / Twitter Share */}
+              <motion.button
+                {...INTERACTIVE_MOTION}
+                onClick={handleTwitterShare}
+                className="inline-flex items-center gap-1 px-2.5 py-1 rounded-[5px] text-xs font-medium bg-black text-white border border-black hover:bg-neutral-800 transition-colors"
+                title="Share dossier on X / Twitter"
+              >
+                <span className="font-bold text-[11px]">𝕏</span>
+                <span className="hidden sm:inline">Post</span>
+              </motion.button>
+            </div>
+          </div>
+
+          {/* Key Metrics Grid (2 cols on mobile, 3 cols on sm+) */}
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5 sm:gap-3 mb-5">
             <div className="p-3 rounded-btn bg-surface border border-border">
               <div className="text-[10px] font-medium uppercase tracking-wider text-text-secondary mb-0.5">
                 Market Capitalization
@@ -157,7 +234,7 @@ export default function DetailModal({ company, onClose }) {
             <h4 className="text-xs font-semibold uppercase tracking-wider text-text-secondary mb-2">
               Historical Equity Returns
             </h4>
-            <div className="grid grid-cols-6 gap-2 text-center">
+            <div className="grid grid-cols-3 sm:grid-cols-6 gap-2 text-center">
               {[1, 2, 3, 4, 5, 6].map((year) => {
                 const ret = company[`ret_${year}y`];
                 return (

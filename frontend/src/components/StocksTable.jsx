@@ -2,7 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { INTERACTIVE_MOTION } from '../motionVariants';
 import CustomSelect from './CustomSelect';
-import { ArrowUpDown, ArrowUp, ArrowDown, ExternalLink } from 'lucide-react';
+import { ArrowUpDown, ArrowUp, ArrowDown, ExternalLink, Download } from 'lucide-react';
 
 export default function StocksTable({
   stocks,
@@ -15,6 +15,7 @@ export default function StocksTable({
   onPageChange,
   onPageSizeChange,
   onSelectCompany,
+  onExportCSV,
   isLoading,
 }) {
   const columns = [
@@ -69,18 +70,31 @@ export default function StocksTable({
     <section className="mb-8 rounded-card bg-surface border border-border shadow-soft overflow-hidden">
       
       {/* Header bar */}
-      <div className="p-4 sm:p-5 border-b border-border flex items-center justify-between flex-wrap gap-3">
-        <div className="flex items-center gap-2.5">
-          <h2 className="text-base sm:text-lg font-semibold text-text-primary">
+      <div className="p-3.5 sm:p-5 border-b border-border flex items-center justify-between flex-wrap gap-2.5 sm:gap-3">
+        <div className="flex items-center gap-2 sm:gap-2.5 flex-wrap">
+          <h2 className="text-sm sm:text-lg font-semibold text-text-primary">
             Listed Stocks Corporate Energy &amp; Returns Directory
           </h2>
-          <span className="px-2.5 py-0.5 rounded-btn text-xs font-semibold bg-white border border-border text-accent">
+          <span className="px-2 sm:px-2.5 py-0.5 rounded-btn text-xs font-semibold bg-white border border-border text-accent">
             {stocks.length.toLocaleString()} matching
           </span>
         </div>
 
-        <div className="flex items-center gap-2">
-          <span className="text-xs text-text-secondary">Display:</span>
+        <div className="flex items-center gap-2 flex-wrap">
+          {/* One-Click Export CSV / Excel Button */}
+          {onExportCSV && (
+            <motion.button
+              {...INTERACTIVE_MOTION}
+              onClick={onExportCSV}
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-btn text-xs font-medium bg-white text-text-primary border border-border hover:bg-surface hover:border-text-secondary/30 transition-colors shadow-xs"
+              title="Download filtered dataset to CSV / Excel spreadsheet"
+            >
+              <Download className="w-3.5 h-3.5 text-accent" />
+              <span>Export CSV</span>
+            </motion.button>
+          )}
+
+          <span className="hidden sm:inline text-xs text-text-secondary">Display:</span>
           <CustomSelect
             value={pageSize}
             onChange={(val) => {
@@ -88,19 +102,26 @@ export default function StocksTable({
               onPageChange(1);
             }}
             options={pageSizeOptions}
-            className="w-36"
+            className="w-32 sm:w-36"
             menuWidth="w-36"
           />
         </div>
       </div>
 
+      {/* Mobile Swipe Hint */}
+      <div className="lg:hidden px-3.5 py-1.5 bg-surface-muted text-[11px] text-text-secondary border-b border-border flex items-center justify-between">
+        <span>👉 Swipe horizontally for all 14 corporate &amp; returns metrics</span>
+        <span className="font-semibold text-accent">Tap row for dossier</span>
+      </div>
+
       {/* Table Container */}
       <div className="overflow-x-auto max-h-[680px]">
         <table className="w-full text-left border-collapse text-xs sm:text-sm">
-          <thead className="sticky top-0 z-10 bg-surface border-b border-border text-text-secondary font-medium select-none shadow-xs">
+          <thead className="sticky top-0 z-20 bg-surface border-b border-border text-text-secondary font-medium select-none shadow-xs">
             <tr>
-              {columns.map((col) => {
+              {columns.map((col, colIdx) => {
                 const isSorted = sortCol === col.id;
+                const isFirst = colIdx === 0;
                 return (
                   <th
                     key={col.id}
@@ -108,7 +129,9 @@ export default function StocksTable({
                     title={`${col.desc} • Click to sort`}
                     className={`py-3 px-3.5 whitespace-nowrap cursor-pointer hover:text-text-primary transition-colors ${
                       col.align === 'right' ? 'text-right' : 'text-left'
-                    } ${isSorted ? 'bg-border-subtle/70 text-text-primary font-semibold' : ''}`}
+                    } ${isSorted ? 'bg-border-subtle/70 text-text-primary font-semibold' : ''} ${
+                      isFirst ? 'sticky left-0 z-30 bg-surface shadow-[2px_0_5px_-2px_rgba(0,0,0,0.12)]' : ''
+                    }`}
                   >
                     <div className={`inline-flex items-center gap-1 ${col.align === 'right' ? 'justify-end' : 'justify-start'}`}>
                       <span>{col.label}</span>
@@ -166,8 +189,8 @@ export default function StocksTable({
                     className="hover:bg-accent/[0.03] transition-colors cursor-pointer group"
                     title="Click row to inspect complete company profile"
                   >
-                    {/* Name */}
-                    <td className="py-2.5 px-3.5 whitespace-nowrap">
+                    {/* Name (Sticky Left Column) */}
+                    <td className="sticky left-0 z-10 bg-white group-hover:bg-[#f0f7ff] py-2.5 px-3.5 whitespace-nowrap shadow-[2px_0_5px_-2px_rgba(0,0,0,0.08)] transition-colors">
                       <div className="font-semibold text-text-primary flex items-center gap-1.5 group-hover:text-accent transition-colors">
                         <span>{stock.name}</span>
                         {isOEM && (

@@ -36,6 +36,71 @@ export default function App() {
 
   // Selected company for modal
   const [selectedTicker, setSelectedTicker] = useState(null);
+  const [toastMessage, setToastMessage] = useState(null);
+
+  const showToast = useCallback((msg) => {
+    setToastMessage(msg);
+    setTimeout(() => setToastMessage(null), 3500);
+  }, []);
+
+  // Handle deep-linking URL selection
+  const handleSelectCompany = useCallback(
+    (ticker) => {
+      if (!ticker) {
+        setSelectedTicker(null);
+        const currentUrl = new URL(window.location.href);
+        currentUrl.searchParams.delete('symbol');
+        currentUrl.searchParams.delete('ticker');
+        currentUrl.searchParams.delete('company');
+        const nextUrl = currentUrl.pathname + (currentUrl.search ? currentUrl.search : '');
+        window.history.pushState({}, '', nextUrl);
+        document.title = 'India Corporate Renewables & Stock Returns Terminal | ICRT';
+        return;
+      }
+
+      const cleanTicker = ticker.toUpperCase().trim();
+      setSelectedTicker(cleanTicker);
+      const currentUrl = new URL(window.location.href);
+      currentUrl.searchParams.set('symbol', cleanTicker);
+      window.history.pushState({}, '', currentUrl.pathname + currentUrl.search);
+
+      const found = allStocks.find((s) => s.ticker === cleanTicker);
+      if (found) {
+        document.title = `${found.name} (${found.ticker}) - Renewable Dossier | ICRT`;
+      }
+    },
+    [allStocks]
+  );
+
+  // Parse query params (?symbol=... or ?ticker=...) on mount
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const sym = params.get('symbol') || params.get('ticker') || params.get('company');
+    if (sym) {
+      setSelectedTicker(sym.toUpperCase().trim());
+    }
+  }, []);
+
+  // Sync document title once allStocks is loaded if symbol already in URL
+  useEffect(() => {
+    if (selectedTicker && allStocks.length > 0) {
+      const found = allStocks.find((s) => s.ticker === selectedTicker);
+      if (found) {
+        document.title = `${found.name} (${found.ticker}) - Renewable Dossier | ICRT`;
+      }
+    }
+  }, [selectedTicker, allStocks]);
+
+  // Listen to browser Back/Forward navigation
+  useEffect(() => {
+    const handlePopState = () => {
+      const params = new URLSearchParams(window.location.search);
+      const sym = params.get('symbol') || params.get('ticker') || params.get('company');
+      setSelectedTicker(sym ? sym.toUpperCase().trim() : null);
+    };
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, []);
 
   // Data fetching (handles both local FastAPI /api/ and static Vercel /data/ fallback)
   const loadData = useCallback(async () => {
@@ -262,35 +327,90 @@ export default function App() {
     setCurrentPage(1);
   };
 
-  // Export CSV
-  const handleExportCSV = () => {
-    if (!filteredAndSortedStocks || filteredAndSortedStocks.length === 0) return;
+  // Export CSV with full institutional data schema & UTF-8 BOM
+  const handleExportCSV = useCallback(() => {
+    if (!filteredAndSortedStocks || filteredAndSortedStocks.length === 0) {
+      showToast('No matching companies to export.');
+      return;
+    }
+
     const headers = [
       'Company Name',
       'Ticker',
       'Cap Tier',
       'Sector',
-      'CMP (Rs)',
-      'RE %',
-      'Green MW',
-      'Annual Cost Shielded (Cr)',
-      '1Y Ret %',
-      '3Y Ret %',
-      '5Y Ret %',
-      '6Y Ret %',
+      'Sub Segment',
+      'Market Cap (Cr INR)',
+      'Current Price (INR)',
+      'PE Ratio',
+      'ROCE (%)',
+      'Renewable Electricity Share (%)',
+      'Green Capacity (MW)',
+      'Annual Utility Cost Shielded (Cr INR)',
+      'Annual Generation (MU)',
+      'Grid Tariff (INR/kWh)',
+      'Solar Cost (INR/kWh)',
+      'Net Tariff Spread (INR/kWh)',
+      '1Y Return (%)',
+      '2Y Return (%)',
+      '3Y Return (%)',
+      '4Y Return (%)',
+      '5Y Return (%)',
+      '6Y Return (%)',
+      'BRSR Status',
+      'Renewable Sourcing Model',
+      'Decarbonization Targets',
     ];
-    let csvContent = 'data:text/csv;charset=utf-8,' + headers.join(',') + '\n';
-    filteredAndSortedStocks.forEach((s) => {
-      csvContent += `"${s.name}","${s.ticker}","${s.cap_tier}","${s.sector}",${s.close_price},${s.re_pct},${s.re_mw},${s.annual_shield_cr},${s.ret_1y},${s.ret_3y},${s.ret_5y},${s.ret_6y}\n`;
-    });
-    const encodedUri = encodeURI(csvContent);
+
+    const escapeCSV = (val) => {
+      if (val === undefined || val === null) return '""';
+      const str = String(val).replace(/"/g, '""');
+      return `"${str}"`;
+    };
+
+    const rows = filteredAndSortedStocks.map((s) => [
+      escapeCSV(s.name),
+      escapeCSV(s.ticker),
+      escapeCSV(s.cap_tier),
+      escapeCSV(s.sector),
+      escapeCSV(s.sub_segment || ''),
+      s.market_cap_cr !== undefined && s.market_cap_cr !== null ? s.market_cap_cr : '',
+      s.close_price !== undefined && s.close_price !== null ? s.close_price : '',
+      s.pe !== undefined && s.pe !== null ? s.pe : '',
+      s.roce !== undefined && s.roce !== null ? s.roce : '',
+      s.re_pct !== undefined && s.re_pct !== null ? s.re_pct : '',
+      s.re_mw !== undefined && s.re_mw !== null ? s.re_mw : '',
+      s.annual_shield_cr !== undefined && s.annual_shield_cr !== null ? s.annual_shield_cr : '',
+      s.annual_mu !== undefined && s.annual_mu !== null ? s.annual_mu : '',
+      s.grid_tariff !== undefined && s.grid_tariff !== null ? s.grid_tariff : '',
+      s.solar_cost !== undefined && s.solar_cost !== null ? s.solar_cost : '',
+      s.unit_shield !== undefined && s.unit_shield !== null ? s.unit_shield : '',
+      s.ret_1y !== undefined && s.ret_1y !== null ? s.ret_1y : '',
+      s.ret_2y !== undefined && s.ret_2y !== null ? s.ret_2y : '',
+      s.ret_3y !== undefined && s.ret_3y !== null ? s.ret_3y : '',
+      s.ret_4y !== undefined && s.ret_4y !== null ? s.ret_4y : '',
+      s.ret_5y !== undefined && s.ret_5y !== null ? s.ret_5y : '',
+      s.ret_6y !== undefined && s.ret_6y !== null ? s.ret_6y : '',
+      escapeCSV(s.brsr_status || 'Reported'),
+      escapeCSV(s.primary_model || s.re_sources || 'Captive Solar & Wind PPA'),
+      escapeCSV(s.targets || 'Net Zero & RE Transition'),
+    ]);
+
+    // UTF-8 BOM (\uFEFF) ensures Excel handles currency symbols & unicode perfectly
+    const csvContent = '\uFEFF' + [headers.join(','), ...rows.map((r) => r.join(','))].join('\r\n');
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
     const link = document.createElement('a');
-    link.setAttribute('href', encodedUri);
-    link.setAttribute('download', 'india_corporate_renewables_stocks_filtered.csv');
+    const today = new Date().toISOString().split('T')[0];
+    link.setAttribute('href', url);
+    link.setAttribute('download', `ICRT_Renewables_Market_Data_${today}.csv`);
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
-  };
+    URL.revokeObjectURL(url);
+
+    showToast(`✓ Exported ${filteredAndSortedStocks.length.toLocaleString()} companies to CSV!`);
+  }, [filteredAndSortedStocks, showToast]);
 
   // Selected company object
   const selectedCompany = useMemo(() => {
@@ -312,7 +432,7 @@ export default function App() {
         isRefreshing={isRefreshing}
       />
 
-      <main className="flex-1 max-w-[1540px] w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
+      <main className="flex-1 max-w-[1540px] 2xl:max-w-[1780px] 3xl:max-w-[2160px] w-full mx-auto px-3 sm:px-6 lg:px-8 py-4 sm:py-8">
         {/* Hero Section */}
         <HeroSection />
 
@@ -373,7 +493,7 @@ export default function App() {
         <ChartsSection
           stats={stats}
           allStocks={allStocks}
-          onSelectCompany={(ticker) => setSelectedTicker(ticker)}
+          onSelectCompany={handleSelectCompany}
           onSelectSector={(sec) => {
             setSector(sec);
             setCurrentPage(1);
@@ -395,7 +515,8 @@ export default function App() {
           pageSize={pageSize}
           onPageChange={setCurrentPage}
           onPageSizeChange={setPageSize}
-          onSelectCompany={(ticker) => setSelectedTicker(ticker)}
+          onSelectCompany={handleSelectCompany}
+          onExportCSV={handleExportCSV}
           isLoading={isLoading}
         />
       </main>
@@ -403,8 +524,16 @@ export default function App() {
       {/* Detail Modal */}
       <DetailModal
         company={selectedCompany}
-        onClose={() => setSelectedTicker(null)}
+        onClose={() => handleSelectCompany(null)}
+        onNotify={showToast}
       />
+
+      {/* Global Toast Notification */}
+      {toastMessage && (
+        <div className="fixed bottom-5 right-5 z-50 flex items-center gap-2 bg-text-primary text-white text-xs sm:text-sm font-medium px-4 py-2.5 rounded-card shadow-lg border border-text-secondary/20 animate-fade-in">
+          <span>{toastMessage}</span>
+        </div>
+      )}
 
       <Footer />
     </div>
