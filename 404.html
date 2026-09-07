@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>India Corporate Renewables Terminal</title>
+    <script type="text/javascript">
+      // GitHub Pages SPA 404 handler: redirects back to root with original path & query parameters preserved
+      (function() {
+        var current = window.location;
+        var pathname = current.pathname;
+        // Extract repo name if under github.io subpath
+        var repoName = 'ICRT-India-Corporate-Renewables-Terminal';
+        var basePath = pathname.indexOf('/' + repoName) === 0 ? '/' + repoName + '/' : '/';
+        
+        // Extract any potential ticker or sub-segment from path
+        var segments = pathname.replace(basePath, '').split('/').filter(Boolean);
+        var searchParams = new URLSearchParams(current.search);
+        
+        if (segments.length > 0 && !searchParams.has('symbol')) {
+          searchParams.set('symbol', segments[0].toUpperCase());
+        }
+        
+        var redirectUrl = current.origin + basePath + (searchParams.toString() ? '?' + searchParams.toString() : '') + current.hash;
+        window.location.replace(redirectUrl);
+      })();
+    </script>
+  </head>
+  <body style="background-color: #0B1120; color: #94A3B8; font-family: sans-serif; display: flex; align-items: center; justify-content: center; height: 100vh; margin: 0;">
+    <p>Loading India Corporate Renewables Terminal...</p>
+  </body>
+</html>
