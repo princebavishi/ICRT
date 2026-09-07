@@ -222,8 +222,11 @@ def get_stats():
 
     return {
         "overall": overall,
+        "kpis": overall,
         "sector_breakdown": sector_breakdown,
+        "sectors": sector_breakdown,
         "cap_breakdown": cap_breakdown,
+        "cap_tiers": cap_breakdown,
         "top_shielded": top_shielded,
         "top_gainers": top_gainers,
         "two_w_three_w": two_w_three_w

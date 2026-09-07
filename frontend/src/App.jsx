@@ -317,7 +317,7 @@ export default function App() {
         <HeroSection />
 
         {/* Top KPI Cards */}
-        <KpiGrid overall={stats?.overall} />
+        <KpiGrid overall={stats?.overall || stats?.kpis} />
 
         {/* Filters Toolbar */}
         <FilterToolbar
@@ -374,6 +374,14 @@ export default function App() {
           stats={stats}
           allStocks={allStocks}
           onSelectCompany={(ticker) => setSelectedTicker(ticker)}
+          onSelectSector={(sec) => {
+            setSector(sec);
+            setCurrentPage(1);
+          }}
+          onSelectCap={(cap) => {
+            setActiveCap(cap);
+            setCurrentPage(1);
+          }}
         />
 
         {/* Listed Stocks Table */}
