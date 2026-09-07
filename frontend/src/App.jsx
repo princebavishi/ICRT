@@ -102,7 +102,21 @@ export default function App() {
     return () => window.removeEventListener('popstate', handlePopState);
   }, []);
 
-  // Data fetching (handles both local FastAPI /api/ and static Vercel /data/ fallback)
+  // Resolves static asset URL relative to base path, subpath, or current directory
+  const getStaticAssetUrl = useCallback((relativePath) => {
+    const clean = relativePath.startsWith('/') ? relativePath.slice(1) : relativePath;
+    try {
+      const urlObj = new URL(window.location.href);
+      if (!urlObj.pathname.endsWith('/') && !urlObj.pathname.split('/').pop().includes('.')) {
+        urlObj.pathname += '/';
+      }
+      return new URL(clean, urlObj.href).href;
+    } catch {
+      return `./${clean}`;
+    }
+  }, []);
+
+  // Data fetching (handles local FastAPI /api/, static Vercel, and GitHub Pages subpath)
   const loadData = useCallback(async () => {
     try {
       setIsRefreshing(true);
@@ -125,11 +139,15 @@ export default function App() {
           throw new Error('API route response not ok');
         }
       } catch (apiErr) {
-        // Fallback for Vercel static hosting
+        // Fallback for GitHub Pages / Vercel static hosting
+        const stocksUrl = getStaticAssetUrl('data/stocks.json');
+        const statsUrl = getStaticAssetUrl('data/stats.json');
+        const sectorsUrl = getStaticAssetUrl('data/sectors.json');
+
         const [stocksRes, statsRes, sectorsRes] = await Promise.all([
-          fetch('/data/stocks.json'),
-          fetch('/data/stats.json'),
-          fetch('/data/sectors.json'),
+          fetch(stocksUrl),
+          fetch(statsUrl),
+          fetch(sectorsUrl),
         ]);
         stocksJson = await stocksRes.json();
         statsJson = await statsRes.json();
@@ -145,7 +163,7 @@ export default function App() {
       setIsLoading(false);
       setIsRefreshing(false);
     }
-  }, []);
+  }, [getStaticAssetUrl]);
 
   useEffect(() => {
     loadData();
