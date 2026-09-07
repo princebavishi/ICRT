@@ -105,6 +105,9 @@ def get_stocks(
         "ret_5y": "ret_5y",
         "ret_6y": "ret_6y",
         "close_price": "close_price",
+        "market_cap_cr": "market_cap_cr",
+        "pe": "pe",
+        "roce": "roce",
         "name": "name",
         "ticker": "ticker",
         "cap_tier": "cap_tier",
@@ -219,8 +222,11 @@ def get_stats():
 
     return {
         "overall": overall,
+        "kpis": overall,
         "sector_breakdown": sector_breakdown,
+        "sectors": sector_breakdown,
         "cap_breakdown": cap_breakdown,
+        "cap_tiers": cap_breakdown,
         "top_shielded": top_shielded,
         "top_gainers": top_gainers,
         "two_w_three_w": two_w_three_w
