@@ -56,10 +56,11 @@ export default function StocksTable({
   }
 
   const formatReturn = (val) => {
-    if (val === undefined || val === null) return '--';
-    const isPos = val >= 0;
+    if (val === undefined || val === null) return <span className="text-text-secondary/60 font-mono">--</span>;
+    if (val === 0) return <span className="text-text-secondary font-medium font-mono">0.0%</span>;
+    const isPos = val > 0;
     return (
-      <span className={isPos ? 'text-accent font-medium' : 'text-text-secondary font-medium'}>
+      <span className={`font-mono ${isPos ? 'text-accent font-semibold' : 'text-rose-500 font-semibold'}`}>
         {isPos ? '+' : ''}
         {val.toFixed(1)}%
       </span>

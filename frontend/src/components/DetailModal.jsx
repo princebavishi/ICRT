@@ -224,24 +224,34 @@ export default function DetailModal({ company, onClose, onNotify }) {
                 Current Market Price (CMP)
               </div>
               <div className="text-base font-bold text-text-primary">
-                ₹{company.close_price.toLocaleString()}
+                ₹{company.close_price?.toLocaleString() || '--'}
               </div>
+              {company.high_52w > 0 && (
+                <div className="text-[11px] text-text-secondary mt-0.5 font-mono">
+                  52W: ₹{company.low_52w?.toLocaleString()} – ₹{company.high_52w?.toLocaleString()}
+                </div>
+              )}
             </div>
           </div>
 
           {/* Historical Returns */}
           <div className="mb-5">
-            <h4 className="text-xs font-semibold uppercase tracking-wider text-text-secondary mb-2">
-              Historical Equity Returns
-            </h4>
+            <div className="flex items-center justify-between mb-2">
+              <h4 className="text-xs font-semibold uppercase tracking-wider text-text-secondary">
+                Verified Historical Equity Returns
+              </h4>
+              <span className="text-[10px] text-text-secondary font-medium">Source: NSE/BSE &amp; Google Finance</span>
+            </div>
             <div className="grid grid-cols-3 sm:grid-cols-6 gap-2 text-center">
               {[1, 2, 3, 4, 5, 6].map((year) => {
                 const ret = company[`ret_${year}y`];
+                const isPositive = ret > 0;
+                const isNegative = ret < 0;
                 return (
                   <div key={year} className="p-2 rounded-btn bg-surface border border-border">
                     <div className="text-[10px] text-text-secondary mb-0.5">{year}Y Ret</div>
-                    <div className={`text-xs font-bold ${ret >= 0 ? 'text-accent' : 'text-text-secondary'}`}>
-                      {ret !== undefined && ret !== null ? `${ret >= 0 ? '+' : ''}${ret.toFixed(1)}%` : '--'}
+                    <div className={`text-xs font-bold ${isPositive ? 'text-accent' : isNegative ? 'text-rose-500' : 'text-text-secondary'}`}>
+                      {ret !== undefined && ret !== null && ret !== 0 ? `${isPositive ? '+' : ''}${ret.toFixed(1)}%` : (ret === 0 ? '0.0%' : '--')}
                     </div>
                   </div>
                 );
