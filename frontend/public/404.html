@@ -8,11 +8,12 @@
       (function() {
         var current = window.location;
         var pathname = current.pathname;
-        // Extract repo name if under github.io subpath
-        var repoName = 'ICRT-India-Corporate-Renewables-Terminal';
-        var basePath = pathname.indexOf('/' + repoName) === 0 ? '/' + repoName + '/' : '/';
+        var allSegments = pathname.split('/').filter(Boolean);
+        var isGitHubPages = current.hostname.indexOf('github.io') !== -1;
+        var repoName = isGitHubPages && allSegments.length > 0 ? allSegments[0] : '';
+        var basePath = repoName ? '/' + repoName + '/' : '/';
         
-        // Extract any potential ticker or sub-segment from path
+        // Extract any potential ticker or sub-segment after basePath
         var segments = pathname.replace(basePath, '').split('/').filter(Boolean);
         var searchParams = new URLSearchParams(current.search);
         
