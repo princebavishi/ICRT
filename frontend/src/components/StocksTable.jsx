@@ -55,6 +55,14 @@ export default function StocksTable({
     paginatedRows = stocks.slice(start, start + size);
   }
 
+  const getGoogleFinanceUrl = (ticker) => {
+    if (!ticker) return 'https://www.google.com/finance';
+    if (/^\d+$/.test(ticker)) {
+      return `https://www.google.com/finance/quote/${ticker}:BOM`;
+    }
+    return `https://www.google.com/finance/quote/${ticker}:NSE`;
+  };
+
   const formatReturn = (val) => {
     if (val === undefined || val === null) return <span className="text-text-secondary/60 font-mono">--</span>;
     if (val === 0) return <span className="text-text-secondary font-medium font-mono">0.0%</span>;
@@ -207,7 +215,19 @@ export default function StocksTable({
 
                     {/* Ticker */}
                     <td className="py-2.5 px-3.5 whitespace-nowrap font-medium text-text-secondary">
-                      {stock.ticker}
+                      <div className="flex items-center gap-1.5">
+                        <span>{stock.ticker}</span>
+                        <a
+                          href={getGoogleFinanceUrl(stock.ticker)}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          onClick={(e) => e.stopPropagation()}
+                          className="text-text-secondary/40 hover:text-blue-600 transition-colors p-0.5 rounded hover:bg-blue-50"
+                          title={`Open ${stock.ticker} on Google Finance`}
+                        >
+                          <ExternalLink className="w-3 h-3" />
+                        </a>
+                      </div>
                     </td>
 
                     {/* Cap Tier */}
@@ -270,14 +290,28 @@ export default function StocksTable({
 
                     {/* Action */}
                     <td className="py-2.5 px-3.5 whitespace-nowrap text-center" onClick={(e) => e.stopPropagation()}>
-                      <motion.button
-                        {...INTERACTIVE_MOTION}
-                        onClick={() => onSelectCompany(stock.ticker)}
-                        className="inline-flex items-center gap-1 px-2.5 py-1 rounded-btn text-xs font-medium text-text-primary bg-white border border-border hover:border-accent hover:text-accent transition-colors shadow-xs"
-                      >
-                        <span>Inspect</span>
-                        <ExternalLink className="w-3 h-3 text-text-secondary group-hover:text-accent" />
-                      </motion.button>
+                      <div className="flex items-center justify-center gap-1.5">
+                        <motion.button
+                          {...INTERACTIVE_MOTION}
+                          onClick={() => onSelectCompany(stock.ticker)}
+                          className="inline-flex items-center gap-1 px-2.5 py-1 rounded-btn text-xs font-medium text-text-primary bg-white border border-border hover:border-accent hover:text-accent transition-colors shadow-xs"
+                          title="Inspect company clean energy profile"
+                        >
+                          <span>Inspect</span>
+                          <ExternalLink className="w-3 h-3 text-text-secondary group-hover:text-accent" />
+                        </motion.button>
+                        <motion.a
+                          {...INTERACTIVE_MOTION}
+                          href={getGoogleFinanceUrl(stock.ticker)}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-1 px-2 py-1 rounded-btn text-xs font-semibold text-blue-600 bg-blue-50/70 border border-blue-200/70 hover:bg-blue-100 hover:border-blue-300 transition-colors shadow-xs"
+                          title={`Open ${stock.name} (${stock.ticker}) on Google Finance`}
+                        >
+                          <span>GF</span>
+                          <ExternalLink className="w-2.5 h-2.5" />
+                        </motion.a>
+                      </div>
                     </td>
                   </tr>
                 );

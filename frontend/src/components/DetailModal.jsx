@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { MODAL_BACKDROP, MODAL_CARD, INTERACTIVE_MOTION } from '../motionVariants';
-import { X, Link2, Check, Share2, MessageCircle } from 'lucide-react';
+import { X, Link2, Check, Share2, MessageCircle, ExternalLink } from 'lucide-react';
 
 export default function DetailModal({ company, onClose, onNotify }) {
   const [isCopied, setIsCopied] = useState(false);
@@ -15,6 +15,14 @@ export default function DetailModal({ company, onClose, onNotify }) {
   }, [onClose]);
 
   if (!company) return null;
+
+  const getGoogleFinanceUrl = (ticker) => {
+    if (!ticker) return 'https://www.google.com/finance';
+    if (/^\d+$/.test(ticker)) {
+      return `https://www.google.com/finance/quote/${ticker}:BOM`;
+    }
+    return `https://www.google.com/finance/quote/${ticker}:NSE`;
+  };
 
   const shareUrl = typeof window !== 'undefined' 
     ? `${window.location.origin}${window.location.pathname}?symbol=${company.ticker}`
@@ -90,19 +98,45 @@ export default function DetailModal({ company, onClose, onNotify }) {
                 </span>
               )}
             </div>
-            <p className="text-xs text-text-secondary">
-              Ticker: <span className="font-semibold text-text-primary">{company.ticker}</span> • Sector: {company.sector} {company.sub_segment ? `• ${company.sub_segment}` : ''}
+            <p className="text-xs text-text-secondary flex items-center gap-2 flex-wrap">
+              <span>Ticker: <span className="font-semibold text-text-primary">{company.ticker}</span></span>
+              <span>•</span>
+              <span>Sector: {company.sector} {company.sub_segment ? `• ${company.sub_segment}` : ''}</span>
+              <span>•</span>
+              <a
+                href={getGoogleFinanceUrl(company.ticker)}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1 font-semibold text-blue-600 hover:text-blue-700 hover:underline"
+                title={`Open ${company.name} on Google Finance`}
+              >
+                <span>Google Finance</span>
+                <ExternalLink className="w-3 h-3" />
+              </a>
             </p>
           </div>
 
-          {/* Share Dossier Bar */}
+          {/* Share & External Dossier Bar */}
           <div className="mb-5 p-2.5 rounded-btn bg-surface border border-border flex items-center justify-between flex-wrap gap-2">
             <div className="flex items-center gap-1.5 text-xs font-semibold text-text-secondary">
               <Share2 className="w-3.5 h-3.5 text-accent" />
-              <span>Share Dossier:</span>
+              <span>Dossier Actions:</span>
             </div>
 
             <div className="flex items-center gap-1.5 sm:gap-2 flex-wrap">
+              {/* Direct Google Finance Redirect */}
+              <motion.a
+                {...INTERACTIVE_MOTION}
+                href={getGoogleFinanceUrl(company.ticker)}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1 px-2.5 py-1 rounded-[5px] text-xs font-semibold bg-blue-50 text-blue-600 border border-blue-200 hover:bg-blue-100 hover:border-blue-300 transition-colors"
+                title={`Open ${company.name} (${company.ticker}) on Google Finance for live charts, financials & news`}
+              >
+                <span>Google Finance</span>
+                <ExternalLink className="w-3 h-3 text-blue-500" />
+              </motion.a>
+
               {/* Copy Direct URL */}
               <motion.button
                 {...INTERACTIVE_MOTION}
@@ -219,18 +253,30 @@ export default function DetailModal({ company, onClose, onNotify }) {
               </div>
             </div>
 
-            <div className="p-3 rounded-btn bg-surface border border-border">
-              <div className="text-[10px] font-medium uppercase tracking-wider text-text-secondary mb-0.5">
-                Current Market Price (CMP)
-              </div>
-              <div className="text-base font-bold text-text-primary">
-                ₹{company.close_price?.toLocaleString() || '--'}
-              </div>
-              {company.high_52w > 0 && (
-                <div className="text-[11px] text-text-secondary mt-0.5 font-mono">
-                  52W: ₹{company.low_52w?.toLocaleString()} – ₹{company.high_52w?.toLocaleString()}
+            <div className="p-3 rounded-btn bg-surface border border-border flex flex-col justify-between">
+              <div>
+                <div className="text-[10px] font-medium uppercase tracking-wider text-text-secondary mb-0.5">
+                  Current Market Price (CMP)
                 </div>
-              )}
+                <div className="text-base font-bold text-text-primary">
+                  ₹{company.close_price?.toLocaleString() || '--'}
+                </div>
+                {company.high_52w > 0 && (
+                  <div className="text-[11px] text-text-secondary mt-0.5 font-mono">
+                    52W: ₹{company.low_52w?.toLocaleString()} – ₹{company.high_52w?.toLocaleString()}
+                  </div>
+                )}
+              </div>
+              <a
+                href={getGoogleFinanceUrl(company.ticker)}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1 text-[11px] font-medium text-blue-600 hover:text-blue-700 hover:underline mt-1.5 pt-1 border-t border-border/60"
+                title={`Open ${company.name} on Google Finance`}
+              >
+                <span>Live Google Finance Quote</span>
+                <ExternalLink className="w-2.5 h-2.5" />
+              </a>
             </div>
           </div>
 
